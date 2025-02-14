@@ -45,6 +45,15 @@ CREATE TABLE seat_type
     PRIMARY KEY (id_seat_type)
 );
 
+CREATE TABLE admin
+(
+    id_admin SERIAL,
+    email    VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id_admin),
+    UNIQUE (email)
+);
+
 CREATE TABLE city
 (
     id_city    SERIAL,
