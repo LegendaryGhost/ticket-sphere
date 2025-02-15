@@ -3,4 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+
+    <!-- Servlet naming -->
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>com.tiarintsoa.controller.FrontController</servlet-class>
+        <init-param>
+            <param-name>controllers_package</param-name>
+            <param-value>com.tiarintsoa.ticketsphere.controller</param-value>
+        </init-param>
+    </servlet>
+
+    <!-- Servlet mapping -->
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
 </web-app>
