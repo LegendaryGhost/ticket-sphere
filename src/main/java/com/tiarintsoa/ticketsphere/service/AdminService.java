@@ -1,4 +1,4 @@
-package com.tiarintsoa.ticketsphere.dao;
+package com.tiarintsoa.ticketsphere.service;
 
 import com.tiarintsoa.ticketsphere.dto.LoginCredentials;
 import com.tiarintsoa.ticketsphere.model.Admin;
@@ -7,7 +7,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Persistence;
 
-public class AdminDAO {
+public class AdminService {
 
     private final static EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
 

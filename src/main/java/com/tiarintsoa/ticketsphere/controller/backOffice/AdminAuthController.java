@@ -3,7 +3,7 @@ package com.tiarintsoa.ticketsphere.controller.backOffice;
 import com.tiarintsoa.annotation.*;
 import com.tiarintsoa.controller.ModelView;
 import com.tiarintsoa.session.WinterSession;
-import com.tiarintsoa.ticketsphere.dao.AdminDAO;
+import com.tiarintsoa.ticketsphere.service.AdminService;
 import com.tiarintsoa.ticketsphere.dto.LoginCredentials;
 import com.tiarintsoa.ticketsphere.model.Admin;
 
@@ -21,14 +21,14 @@ public class AdminAuthController {
     @Post
     @UrlMapping("/login")
     public ModelView handleLogin(@RequestParameter("credentials") LoginCredentials credentials) {
-        Admin admin = AdminDAO.findByEmailAndPassword(credentials);
+        Admin admin = AdminService.findByEmailAndPassword(credentials);
         if (admin == null) {
-            return new ModelView("back-office/login.jsp");
+            return new ModelView("redirect:/admin-auth/login");
         } else {
             session.add("authenticated", true);
             session.add("role", "admin");
             session.add("adminId", admin.getId());
-            return new ModelView("back-office/home.jsp");
+            return new ModelView("redirect:/admin/flights");
         }
     }
 
