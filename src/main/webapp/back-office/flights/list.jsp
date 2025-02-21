@@ -1,0 +1,59 @@
+<%@ page import="com.tiarintsoa.ticketsphere.model.Flight" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.tiarintsoa.ticketsphere.utils.DateTimeUtil" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+
+<%
+    @SuppressWarnings("unchecked")
+    List<Flight> flights = (List<Flight>) request.getAttribute("flights");
+%>
+
+<html>
+<head>
+    <title>Flight list</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin/flights">
+                    Flights
+                </a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/admin-auth/logout">
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Flights</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Flight number</th>
+                    <th>Departure city</th>
+                    <th>Departure time</th>
+                    <th>Arrival city</th>
+                    <th>Arrival time</th>
+                    <th>Aircraft</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(Flight flight : flights) { %>
+                <tr>
+                    <td><%= flight.getId() %></td>
+                    <td><%= flight.getDepartureCity().getName() + " " + flight.getDepartureCity().getCountry().getName() %></td>
+                    <td><%= DateTimeUtil.format(flight.getDepartureTime()) %></td>
+                    <td><%= flight.getArrivalCity().getName() + " " + flight.getArrivalCity().getCountry().getName() %></td>
+                    <td><%= DateTimeUtil.format(flight.getArrivalTime()) %></td>
+                    <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
