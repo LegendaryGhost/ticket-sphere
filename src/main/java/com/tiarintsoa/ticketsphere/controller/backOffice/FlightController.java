@@ -4,6 +4,7 @@ import com.tiarintsoa.annotation.*;
 import com.tiarintsoa.authentication.annotation.Authenticated;
 import com.tiarintsoa.controller.ModelView;
 import com.tiarintsoa.ticketsphere.dto.FlightRequest;
+import com.tiarintsoa.ticketsphere.dto.FlightSearchRequest;
 import com.tiarintsoa.ticketsphere.model.Flight;
 import com.tiarintsoa.ticketsphere.service.AircraftService;
 import com.tiarintsoa.ticketsphere.service.CityService;
@@ -19,9 +20,12 @@ public class FlightController {
     private final AircraftService aircraftService = AircraftService.getInstance();
 
     @UrlMapping
-    public ModelView flightList() {
+    public ModelView flightList(@RequestParameter("criteria") FlightSearchRequest criteria) {
         ModelView modelView = new ModelView("back-office/flights/list.jsp");
-        modelView.addObject("flights", flightService.findAll());
+        modelView.addObject("flights", flightService.searchFlights(criteria));
+        modelView.addObject("criteria", criteria == null ? new FlightSearchRequest() : criteria);
+        modelView.addObject("cities", cityService.findAll());
+        modelView.addObject("aircrafts", aircraftService.findAll());
         return modelView;
     }
 
