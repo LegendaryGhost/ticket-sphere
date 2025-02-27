@@ -1,5 +1,6 @@
 package com.tiarintsoa.ticketsphere.service;
 
+import com.tiarintsoa.ticketsphere.dto.FlightRequest;
 import com.tiarintsoa.ticketsphere.model.Flight;
 
 public class FlightService extends CRUDService<Flight> {
@@ -15,5 +16,4 @@ public class FlightService extends CRUDService<Flight> {
             instance = new FlightService();
         return instance;
     }
-
 }

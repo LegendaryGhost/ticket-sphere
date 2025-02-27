@@ -38,7 +38,7 @@ public class AdminAuthController {
         session.delete("authenticated");
         session.delete("role");
         session.delete("adminId");
-        return new ModelView("back-office/home.jsp");
+        return new ModelView("back-office/login.jsp");
     }
 
 }
