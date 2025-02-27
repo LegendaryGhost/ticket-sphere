@@ -1,21 +1,67 @@
 package com.tiarintsoa.ticketsphere.controller.backOffice;
 
-import com.tiarintsoa.annotation.Controller;
-import com.tiarintsoa.annotation.UrlMapping;
+import com.tiarintsoa.annotation.*;
 import com.tiarintsoa.authentication.annotation.Authenticated;
 import com.tiarintsoa.controller.ModelView;
+import com.tiarintsoa.ticketsphere.dto.FlightRequest;
+import com.tiarintsoa.ticketsphere.model.Flight;
+import com.tiarintsoa.ticketsphere.service.AircraftService;
+import com.tiarintsoa.ticketsphere.service.CityService;
 import com.tiarintsoa.ticketsphere.service.FlightService;
+import com.tiarintsoa.validation.annotation.Number;
 
 @Controller
 @Authenticated(roles = "admin")
 @UrlMapping("/admin/flights")
 public class FlightController {
+    private final FlightService flightService = FlightService.getInstance();
+    private final CityService cityService = CityService.getInstance();
+    private final AircraftService aircraftService = AircraftService.getInstance();
 
     @UrlMapping
     public ModelView flightList() {
         ModelView modelView = new ModelView("back-office/flights/list.jsp");
-        modelView.addObject("flights", FlightService.findAll());
+        modelView.addObject("flights", flightService.findAll());
         return modelView;
+    }
+
+    @UrlMapping("/delete")
+    public ModelView delete(@RequestParameter("id") Integer id) {
+        flightService.delete(id);
+        return new ModelView("redirect:/admin/flights");
+    }
+
+    @UrlMapping("/add")
+    public ModelView add() {
+        ModelView modelView = new ModelView("back-office/flights/form.jsp");
+        modelView.addObject("cities", cityService.findAll());
+        modelView.addObject("aircrafts", aircraftService.findAll());
+        modelView.addObject("flight", new Flight());
+        modelView.addObject("title", "Add a new flight");
+        modelView.addObject("submitButtonText", "Add");
+        return modelView;
+    }
+
+    @UrlMapping("/update")
+    public ModelView update(@RequestParameter("id") @Number Integer id) {
+        ModelView modelView = new ModelView("back-office/flights/form.jsp");
+        modelView.addObject("cities", cityService.findAll());
+        modelView.addObject("aircrafts", aircraftService.findAll());
+        modelView.addObject("flight", flightService.findById(id));
+        modelView.addObject("title", "Update flight");
+        modelView.addObject("submitButtonText", "Update");
+        return modelView;
+    }
+
+    @Post
+    @UrlMapping("/save")
+    public ModelView save(@RequestParameter("flight") FlightRequest flightRequest) {
+        if (flightRequest.getId() == null) {
+            flightService.create(flightRequest.toFlight());
+        } else {
+            flightService.update(flightRequest.toFlight());
+        }
+        return new ModelView("redirect:/admin/flights");
     }
 
 }

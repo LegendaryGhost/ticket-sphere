@@ -13,23 +13,13 @@
     <title>Flight list</title>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li>
-                <a href="${pageContext.request.contextPath}/admin/flights">
-                    Flights
-                </a>
-            </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/admin-auth/logout">
-                    Logout
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <%@ include file="./../components/navbar.jsp"%>
 
     <main>
         <h1>Flights</h1>
+        <p>
+            <a href="${pageContext.request.contextPath}/admin/flights/add">Add a new flight</a>
+        </p>
         <table>
             <thead>
                 <tr>
@@ -39,6 +29,7 @@
                     <th>Arrival city</th>
                     <th>Arrival time</th>
                     <th>Aircraft</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,10 +37,14 @@
                 <tr>
                     <td><%= flight.getId() %></td>
                     <td><%= flight.getDepartureCity().getName() + " " + flight.getDepartureCity().getCountry().getName() %></td>
-                    <td><%= DateTimeUtil.format(flight.getDepartureTime()) %></td>
+                    <td><%= DateTimeUtil.humanFormat(flight.getDepartureTime()) %></td>
                     <td><%= flight.getArrivalCity().getName() + " " + flight.getArrivalCity().getCountry().getName() %></td>
-                    <td><%= DateTimeUtil.format(flight.getArrivalTime()) %></td>
+                    <td><%= DateTimeUtil.humanFormat(flight.getArrivalTime()) %></td>
                     <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/admin/flights/update?id=<%= flight.getId() %>">Update</a>
+                        <a href="${pageContext.request.contextPath}/admin/flights/delete?id=<%= flight.getId() %>">Delete</a>
+                    </td>
                 </tr>
                 <% } %>
             </tbody>
