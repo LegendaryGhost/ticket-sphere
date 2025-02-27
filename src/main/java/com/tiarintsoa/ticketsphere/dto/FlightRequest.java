@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 @Data
 public class FlightRequest {
 
+    @RequestParameter("id")
+    private Integer id;
+
     @RequestParameter("departureTime")
     private LocalDateTime departureTime;
 
@@ -29,6 +32,7 @@ public class FlightRequest {
     public Flight toFlight() {
         Flight flight = new Flight();
 
+        flight.setId(id);
         flight.setDepartureTime(departureTime);
         flight.setArrivalTime(arrivalTime);
 

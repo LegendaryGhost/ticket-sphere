@@ -29,6 +29,7 @@
                     <th>Arrival city</th>
                     <th>Arrival time</th>
                     <th>Aircraft</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,10 +37,14 @@
                 <tr>
                     <td><%= flight.getId() %></td>
                     <td><%= flight.getDepartureCity().getName() + " " + flight.getDepartureCity().getCountry().getName() %></td>
-                    <td><%= DateTimeUtil.format(flight.getDepartureTime()) %></td>
+                    <td><%= DateTimeUtil.humanFormat(flight.getDepartureTime()) %></td>
                     <td><%= flight.getArrivalCity().getName() + " " + flight.getArrivalCity().getCountry().getName() %></td>
-                    <td><%= DateTimeUtil.format(flight.getArrivalTime()) %></td>
+                    <td><%= DateTimeUtil.humanFormat(flight.getArrivalTime()) %></td>
                     <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/admin/flights/update?id=<%= flight.getId() %>">Update</a>
+                        <a href="${pageContext.request.contextPath}/admin/flights/delete?id=<%= flight.getId() %>">Delete</a>
+                    </td>
                 </tr>
                 <% } %>
             </tbody>

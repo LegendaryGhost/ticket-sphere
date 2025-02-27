@@ -4,6 +4,7 @@ import com.tiarintsoa.annotation.*;
 import com.tiarintsoa.authentication.annotation.Authenticated;
 import com.tiarintsoa.controller.ModelView;
 import com.tiarintsoa.ticketsphere.dto.FlightRequest;
+import com.tiarintsoa.ticketsphere.model.Flight;
 import com.tiarintsoa.ticketsphere.service.AircraftService;
 import com.tiarintsoa.ticketsphere.service.CityService;
 import com.tiarintsoa.ticketsphere.service.FlightService;
@@ -25,7 +26,7 @@ public class FlightController {
     }
 
     @UrlMapping("/delete")
-    public ModelView delete(@RequestParameter("id") @Number Integer id) {
+    public ModelView delete(@RequestParameter("id") Integer id) {
         flightService.delete(id);
         return new ModelView("redirect:/admin/flights");
     }
@@ -35,13 +36,31 @@ public class FlightController {
         ModelView modelView = new ModelView("back-office/flights/form.jsp");
         modelView.addObject("cities", cityService.findAll());
         modelView.addObject("aircrafts", aircraftService.findAll());
+        modelView.addObject("flight", new Flight());
+        modelView.addObject("title", "Add a new flight");
+        modelView.addObject("submitButtonText", "Add");
+        return modelView;
+    }
+
+    @UrlMapping("/update")
+    public ModelView update(@RequestParameter("id") @Number Integer id) {
+        ModelView modelView = new ModelView("back-office/flights/form.jsp");
+        modelView.addObject("cities", cityService.findAll());
+        modelView.addObject("aircrafts", aircraftService.findAll());
+        modelView.addObject("flight", flightService.findById(id));
+        modelView.addObject("title", "Update flight");
+        modelView.addObject("submitButtonText", "Update");
         return modelView;
     }
 
     @Post
     @UrlMapping("/save")
     public ModelView save(@RequestParameter("flight") FlightRequest flightRequest) {
-        flightService.create(flightRequest.toFlight());
+        if (flightRequest.getId() == null) {
+            flightService.create(flightRequest.toFlight());
+        } else {
+            flightService.update(flightRequest.toFlight());
+        }
         return new ModelView("redirect:/admin/flights");
     }
 
