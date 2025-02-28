@@ -104,6 +104,17 @@ CREATE TABLE reservation
     FOREIGN KEY (id_client_user) REFERENCES client_user (id_client_user)
 );
 
+CREATE TABLE seat_price
+(
+    id_seat_price SERIAL,
+    price         NUMERIC(15, 2) NOT NULL,
+    id_flight     INTEGER        NOT NULL,
+    id_seat_type  INTEGER        NOT NULL,
+    PRIMARY KEY (id_seat_price),
+    FOREIGN KEY (id_flight) REFERENCES flight (id_flight),
+    FOREIGN KEY (id_seat_type) REFERENCES seat_type (id_seat_type)
+);
+
 CREATE TABLE aircraft_model_seat
 (
     id_aircraft_model INTEGER,
