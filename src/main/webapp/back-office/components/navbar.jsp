@@ -6,7 +6,7 @@
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/admin/flights/seat-price">
+            <a href="${pageContext.request.contextPath}/admin/seat-prices/form">
                 Set seat price
             </a>
         </li>

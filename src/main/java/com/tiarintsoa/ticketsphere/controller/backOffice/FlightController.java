@@ -5,7 +5,6 @@ import com.tiarintsoa.authentication.annotation.Authenticated;
 import com.tiarintsoa.controller.ModelView;
 import com.tiarintsoa.ticketsphere.dto.FlightRequest;
 import com.tiarintsoa.ticketsphere.dto.FlightSearchRequest;
-import com.tiarintsoa.ticketsphere.dto.SeatPriceRequest;
 import com.tiarintsoa.ticketsphere.model.Flight;
 import com.tiarintsoa.ticketsphere.service.*;
 import com.tiarintsoa.validation.annotation.Number;
@@ -18,8 +17,6 @@ public class FlightController {
     private final FlightService flightService = FlightService.getInstance();
     private final CityService cityService = CityService.getInstance();
     private final AircraftService aircraftService = AircraftService.getInstance();
-    private final SeatTypeService seatTypeService = SeatTypeService.getInstance();
-    private final SeatPriceService seatPriceService = SeatPriceService.getInstance();
 
     @UrlMapping
     public ModelView flightList(@RequestParameter("criteria") FlightSearchRequest criteria) {
@@ -67,21 +64,6 @@ public class FlightController {
         } else {
             flightService.update(flightRequest.toFlight());
         }
-        return new ModelView("redirect:/admin/flights");
-    }
-
-    @UrlMapping("/seat-price")
-    public ModelView seatPrice() {
-        ModelView modelView = new ModelView("back-office/flights/seat-price.jsp");
-        modelView.addObject("flights", flightService.findAll());
-        modelView.addObject("seatTypes", seatTypeService.findAll());
-        return modelView;
-    }
-
-    @Post
-    @UrlMapping("/seat-price")
-    public ModelView saveSeatPrice(@RequestParameter("seatPrice") SeatPriceRequest seatPriceRequest) {
-        seatPriceService.createOrUpdate(seatPriceRequest);
         return new ModelView("redirect:/admin/flights");
     }
 

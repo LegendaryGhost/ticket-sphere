@@ -18,7 +18,7 @@
 <body>
     <main>
         <h1>Set flight seat price</h1>
-        <form action="${pageContext.request.contextPath}/admin/flights/seat-price" method="post">
+        <form action="${pageContext.request.contextPath}/admin/seat-prices/save" method="post">
             <label for="flight">Flight:</label><br>
             <select name="seatPrice.flight" id="flight" required>
                 <option value="">-- Choose a flight --</option>
@@ -37,8 +37,8 @@
                 <% } %>
             </select><br>
 
-            <label for="price">Price:</label>
-            <input type="number" min="0.01" step="0.01" name="seatPrice.price" id="price" required>
+            <label for="price">Price:</label><br>
+            <input type="number" min="0.01" step="0.01" name="seatPrice.price" id="price" required><br>
 
             <button type="submit">Save</button>
         </form>
