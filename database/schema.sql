@@ -115,6 +115,18 @@ CREATE TABLE seat_price
     FOREIGN KEY (id_seat_type) REFERENCES seat_type (id_seat_type)
 );
 
+CREATE TABLE promotion
+(
+    id_promotion        SERIAL,
+    discount_percentage NUMERIC(15, 2) NOT NULL,
+    seat_number         INTEGER        NOT NULL,
+    id_flight           INTEGER        NOT NULL,
+    id_seat_type        INTEGER        NOT NULL,
+    PRIMARY KEY (id_promotion),
+    FOREIGN KEY (id_flight) REFERENCES flight (id_flight),
+    FOREIGN KEY (id_seat_type) REFERENCES seat_type (id_seat_type)
+);
+
 CREATE TABLE aircraft_model_seat
 (
     id_aircraft_model INTEGER,

@@ -6,23 +6,23 @@ import com.tiarintsoa.annotation.RequestParameter;
 import com.tiarintsoa.annotation.UrlMapping;
 import com.tiarintsoa.authentication.annotation.Authenticated;
 import com.tiarintsoa.controller.ModelView;
-import com.tiarintsoa.ticketsphere.dto.SeatPriceRequest;
+import com.tiarintsoa.ticketsphere.dto.PromotionRequest;
 import com.tiarintsoa.ticketsphere.service.FlightService;
-import com.tiarintsoa.ticketsphere.service.SeatPriceService;
+import com.tiarintsoa.ticketsphere.service.PromotionService;
 import com.tiarintsoa.ticketsphere.service.SeatTypeService;
 
 @Controller
 @Authenticated(roles = "admin")
-@UrlMapping("/admin/seat-prices")
-public class SeatPriceController {
+@UrlMapping("/admin/promotions")
+public class PromotionController {
 
     private final FlightService flightService = FlightService.getInstance();
     private final SeatTypeService seatTypeService = SeatTypeService.getInstance();
-    private final SeatPriceService seatPriceService = SeatPriceService.getInstance();
+    private final PromotionService promotionService = PromotionService.getInstance();
 
     @UrlMapping("/form")
     public ModelView showForm() {
-        ModelView modelView = new ModelView("back-office/seat-prices/form.jsp");
+        ModelView modelView = new ModelView("back-office/promotions/form.jsp");
         modelView.addObject("flights", flightService.findAll());
         modelView.addObject("seatTypes", seatTypeService.findAll());
         return modelView;
@@ -30,8 +30,8 @@ public class SeatPriceController {
 
     @Post
     @UrlMapping("/save")
-    public ModelView saveSeatPrice(@RequestParameter("seatPrice") SeatPriceRequest seatPriceRequest) {
-        seatPriceService.createOrUpdate(seatPriceRequest);
+    public ModelView savePromotion(@RequestParameter("promotion") PromotionRequest promotionRequest) {
+        promotionService.createOrUpdate(promotionRequest);
         return new ModelView("redirect:/admin/flights");
     }
 
