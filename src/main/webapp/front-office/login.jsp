@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>BO - Login</title>
+    <title>FO - Login</title>
 </head>
 <body>
-    <h1>Back Office Login</h1>
-    <form action="${pageContext.request.contextPath}/admin-auth/login" method="post">
+    <h1>Front Office Login</h1>
+    <form action="${pageContext.request.contextPath}/login" method="post">
         <label for="email">Email :</label><br>
         <input type="email" name="credentials.email" id="email" /><br>
         <label for="password">Password :</label><br>

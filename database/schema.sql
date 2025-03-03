@@ -99,20 +99,6 @@ CREATE TABLE flight_stopover
     FOREIGN KEY (id_flight) REFERENCES flight (id_flight)
 );
 
-CREATE TABLE reservation
-(
-    id_reservation   SERIAL,
-    seat_number      INTEGER   NOT NULL,
-    reservation_date TIMESTAMP NOT NULL DEFAULT NOW(),
-    id_seat_type     INTEGER   NOT NULL,
-    id_flight        INTEGER   NOT NULL,
-    id_client_user   INTEGER   NOT NULL,
-    PRIMARY KEY (id_reservation),
-    FOREIGN KEY (id_seat_type) REFERENCES seat_type (id_seat_type),
-    FOREIGN KEY (id_flight) REFERENCES flight (id_flight),
-    FOREIGN KEY (id_client_user) REFERENCES client_user (id_client_user)
-);
-
 CREATE TABLE seat_price
 (
     id_seat_price SERIAL,
@@ -134,6 +120,23 @@ CREATE TABLE promotion
     PRIMARY KEY (id_promotion),
     FOREIGN KEY (id_flight) REFERENCES flight (id_flight),
     FOREIGN KEY (id_seat_type) REFERENCES seat_type (id_seat_type)
+);
+
+CREATE TABLE reservation
+(
+    id_reservation       SERIAL,
+    seat_number          INTEGER   NOT NULL,
+    promoted_seat_number INTEGER   NOT NULL DEFAULT 0,
+    reservation_date     TIMESTAMP NOT NULL DEFAULT NOW(),
+    id_promotion         INTEGER,
+    id_seat_type         INTEGER   NOT NULL,
+    id_flight            INTEGER   NOT NULL,
+    id_client_user       INTEGER   NOT NULL,
+    PRIMARY KEY (id_reservation),
+    FOREIGN KEY (id_promotion) REFERENCES promotion (id_promotion),
+    FOREIGN KEY (id_seat_type) REFERENCES seat_type (id_seat_type),
+    FOREIGN KEY (id_flight) REFERENCES flight (id_flight),
+    FOREIGN KEY (id_client_user) REFERENCES client_user (id_client_user)
 );
 
 CREATE TABLE aircraft_model_seat

@@ -12,6 +12,7 @@ import com.tiarintsoa.ticketsphere.model.Admin;
 public class AdminAuthController {
 
     private WinterSession session;
+    private final AdminService adminService = AdminService.getInstance();
 
     @UrlMapping("/login")
     public ModelView login() {
@@ -21,7 +22,7 @@ public class AdminAuthController {
     @Post
     @UrlMapping("/login")
     public ModelView handleLogin(@RequestParameter("credentials") LoginCredentials credentials) {
-        Admin admin = AdminService.findByEmailAndPassword(credentials);
+        Admin admin = adminService.findByEmailAndPassword(credentials);
         if (admin == null) {
             return new ModelView("redirect:/admin-auth/login");
         } else {
@@ -32,13 +33,12 @@ public class AdminAuthController {
         }
     }
 
-    @Get
     @UrlMapping("/logout")
     public ModelView logout() {
         session.delete("authenticated");
         session.delete("role");
         session.delete("adminId");
-        return new ModelView("back-office/login.jsp");
+        return new ModelView("redirect:/admin-auth/login");
     }
 
 }
