@@ -1,7 +1,6 @@
 package com.tiarintsoa.ticketsphere.service;
 
 import com.tiarintsoa.ticketsphere.dto.LoginCredentials;
-import com.tiarintsoa.ticketsphere.model.Admin;
 import com.tiarintsoa.ticketsphere.model.Client;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;

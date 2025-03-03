@@ -16,7 +16,7 @@ public class AuthController {
     private WinterSession session;
     private final ClientService clientService = ClientService.getInstance();
 
-    @UrlMapping
+    @UrlMapping("/")
     public ModelView index() {
         return new ModelView("redirect:/login");
     }
