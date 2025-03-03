@@ -16,6 +16,8 @@
     <title>Add a promotion</title>
 </head>
 <body>
+    <%@ include file="./../components/navbar.jsp"%>
+
     <main>
         <h1>Add a promotion</h1>
         <form action="${pageContext.request.contextPath}/admin/promotions/save" method="post">

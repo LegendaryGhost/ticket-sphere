@@ -32,7 +32,7 @@
                     <td><%= configuration.getValue() %></td>
                     <td><%= configuration.getDescription() %></td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/admin/configurations/update?id=<%= configuration.getKey() %>">Update</a>
+                        <a href="${pageContext.request.contextPath}/admin/configurations/update?key=<%= configuration.getKey() %>">Update</a>
                     </td>
                 </tr>
                 <% } %>

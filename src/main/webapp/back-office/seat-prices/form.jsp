@@ -16,6 +16,8 @@
     <title>Set flight seat price</title>
 </head>
 <body>
+    <%@ include file="./../components/navbar.jsp"%>
+
     <main>
         <h1>Set flight seat price</h1>
         <form action="${pageContext.request.contextPath}/admin/seat-prices/save" method="post">
