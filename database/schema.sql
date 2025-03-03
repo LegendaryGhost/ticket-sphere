@@ -54,6 +54,15 @@ CREATE TABLE admin
     UNIQUE (email)
 );
 
+CREATE TABLE configuration
+(
+    config_key   VARCHAR(100),
+    display_name VARCHAR(100) NOT NULL,
+    config_value VARCHAR(100) NOT NULL,
+    description  VARCHAR(255),
+    PRIMARY KEY (config_key)
+);
+
 CREATE TABLE city
 (
     id_city    SERIAL,

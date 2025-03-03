@@ -2,7 +2,7 @@ package com.tiarintsoa.ticketsphere.service;
 
 import com.tiarintsoa.ticketsphere.model.City;
 
-public class CityService extends CRUDService<City> {
+public class CityService extends CRUDService<City, Integer> {
 
     private static CityService instance;
 

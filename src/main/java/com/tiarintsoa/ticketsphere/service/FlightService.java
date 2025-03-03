@@ -12,7 +12,7 @@ import jakarta.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlightService extends CRUDService<Flight> {
+public class FlightService extends CRUDService<Flight, Integer> {
 
     private static FlightService instance;
 

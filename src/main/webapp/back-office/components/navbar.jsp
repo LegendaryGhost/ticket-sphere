@@ -16,6 +16,11 @@
             </a>
         </li>
         <li>
+            <a href="${pageContext.request.contextPath}/admin/configurations">
+                Configurations
+            </a>
+        </li>
+        <li>
             <a href="${pageContext.request.contextPath}/admin-auth/logout">
                 Logout
             </a>

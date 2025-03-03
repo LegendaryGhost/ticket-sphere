@@ -1,10 +1,8 @@
 package com.tiarintsoa.ticketsphere.service;
 
-import com.tiarintsoa.ticketsphere.dto.SeatPriceRequest;
 import com.tiarintsoa.ticketsphere.model.SeatType;
-import jakarta.persistence.EntityManager;
 
-public class SeatTypeService extends CRUDService<SeatType> {
+public class SeatTypeService extends CRUDService<SeatType, Integer> {
 
     private static SeatTypeService instance;
 

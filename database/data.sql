@@ -2,6 +2,12 @@ INSERT INTO admin(email, password)
 VALUES ('rihantiana000@gmail.com', 'rihantiana');
 
 
+INSERT INTO configuration (config_key, display_name, config_value, description)
+VALUES
+    ('RESERVATION_DEADLINE_HOURS', 'Reservation Deadline (hours)', '24', 'Number of hours before an event when reservations close'),
+    ('CANCELLATION_DEADLINE_HOURS', 'Cancellation Deadline (hours)', '12', 'Number of hours before an event when cancellations are allowed');
+
+
 INSERT INTO aircraft_model (name, manufacturer, description)
 VALUES ('Boeing 737', 'Boeing', 'A narrow-body aircraft widely used for short to medium-haul flights.'),
        ('Airbus A320', 'Airbus', 'A popular single-aisle aircraft for domestic and international routes.'),

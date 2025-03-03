@@ -7,7 +7,7 @@ import com.tiarintsoa.ticketsphere.model.SeatType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 
-public class SeatPriceService extends CRUDService<SeatPrice> {
+public class SeatPriceService extends CRUDService<SeatPrice, Integer> {
 
     private static SeatPriceService instance;
 
