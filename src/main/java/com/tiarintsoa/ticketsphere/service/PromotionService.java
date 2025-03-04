@@ -62,4 +62,18 @@ public class PromotionService extends CRUDService<Promotion, Integer> {
         }
     }
 
+    public int findTakenPromotionSeats(Integer id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT COALESCE(SUM(r.promotedSeatNumber), 0) FROM Reservation r WHERE r.promotion.id = :id";
+
+            Long result = em.createQuery(jpql, Long.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+
+            return result.intValue();
+        } catch (NoResultException e) {
+            return 0;
+        }
+    }
+
 }

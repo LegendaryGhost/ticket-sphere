@@ -35,7 +35,7 @@ public class AuthController {
         } else {
             session.add("authenticated", true);
             session.add("role", "client");
-            session.add("clientId", client.getId());
+            session.add("idClient", client.getId());
             return new ModelView("redirect:/flights");
         }
     }
@@ -44,7 +44,7 @@ public class AuthController {
     public ModelView logout() {
         session.delete("authenticated");
         session.delete("role");
-        session.delete("clientId");
+        session.delete("idClient");
         return new ModelView("redirect:/login");
     }
 

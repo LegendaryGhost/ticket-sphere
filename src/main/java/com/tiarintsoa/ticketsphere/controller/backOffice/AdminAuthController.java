@@ -28,7 +28,7 @@ public class AdminAuthController {
         } else {
             session.add("authenticated", true);
             session.add("role", "admin");
-            session.add("adminId", admin.getId());
+            session.add("idAdmin", admin.getId());
             return new ModelView("redirect:/admin/flights");
         }
     }
@@ -37,7 +37,7 @@ public class AdminAuthController {
     public ModelView logout() {
         session.delete("authenticated");
         session.delete("role");
-        session.delete("adminId");
+        session.delete("idAdmin");
         return new ModelView("redirect:/admin-auth/login");
     }
 
