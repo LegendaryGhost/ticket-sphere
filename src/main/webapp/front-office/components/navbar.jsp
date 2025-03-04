@@ -6,6 +6,11 @@
             </a>
         </li>
         <li>
+            <a href="${pageContext.request.contextPath}/reservations">
+                Reservation history
+            </a>
+        </li>
+        <li>
             <a href="${pageContext.request.contextPath}/reservations/create">
                 Make a reservation
             </a>

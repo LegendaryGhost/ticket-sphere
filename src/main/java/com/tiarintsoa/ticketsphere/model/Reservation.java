@@ -22,7 +22,7 @@ public class Reservation {
     private Integer promotedSeatNumber = 0;
 
     @Column(name = "reservation_date")
-    private LocalDateTime date = LocalDateTime.now();
+    private LocalDateTime dateTime = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_promotion")

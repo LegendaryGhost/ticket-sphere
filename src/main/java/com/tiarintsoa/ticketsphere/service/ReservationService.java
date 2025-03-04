@@ -4,6 +4,10 @@ import com.tiarintsoa.ticketsphere.dto.ReservationRequest;
 import com.tiarintsoa.ticketsphere.model.Client;
 import com.tiarintsoa.ticketsphere.model.Promotion;
 import com.tiarintsoa.ticketsphere.model.Reservation;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+
+import java.util.List;
 
 public class ReservationService extends CRUDService<Reservation, Integer> {
 
@@ -42,5 +46,15 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
         reservation.setClient(client);
 
         create(reservation);
+    }
+
+    public List<Reservation> findByIdClient(Integer idClient) {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT re FROM Reservation re WHERE re.client.id = :idClient";
+
+            return em.createQuery(jpql, Reservation.class)
+                    .setParameter("idClient", idClient)
+                    .getResultList();
+        }
     }
 }

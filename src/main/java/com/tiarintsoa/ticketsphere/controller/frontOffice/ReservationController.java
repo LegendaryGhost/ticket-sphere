@@ -23,6 +23,13 @@ public class ReservationController {
     private final SeatTypeService seatTypeService = SeatTypeService.getInstance();
     private final ReservationService reservationService = ReservationService.getInstance();
 
+    @UrlMapping
+    public ModelView showList() {
+        ModelView modelView = new ModelView("front-office/reservations/list.jsp");
+        modelView.addObject("reservations", reservationService.findByIdClient((Integer) session.get("idClient")));
+        return modelView;
+    }
+
     @UrlMapping("/create")
     public ModelView showForm(@RequestParameter("idFlight") Integer idFlight) {
         ModelView modelView = new ModelView("front-office/reservations/form.jsp");
