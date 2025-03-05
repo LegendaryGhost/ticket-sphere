@@ -8,9 +8,14 @@ import com.tiarintsoa.authentication.annotation.Authenticated;
 import com.tiarintsoa.controller.ModelView;
 import com.tiarintsoa.session.WinterSession;
 import com.tiarintsoa.ticketsphere.dto.ReservationRequest;
+import com.tiarintsoa.ticketsphere.model.Flight;
+import com.tiarintsoa.ticketsphere.model.Reservation;
+import com.tiarintsoa.ticketsphere.service.ConfigurationService;
 import com.tiarintsoa.ticketsphere.service.FlightService;
 import com.tiarintsoa.ticketsphere.service.ReservationService;
 import com.tiarintsoa.ticketsphere.service.SeatTypeService;
+
+import java.time.LocalDateTime;
 
 @Controller
 @Authenticated
@@ -22,6 +27,10 @@ public class ReservationController {
     private final FlightService flightService = FlightService.getInstance();
     private final SeatTypeService seatTypeService = SeatTypeService.getInstance();
     private final ReservationService reservationService = ReservationService.getInstance();
+    private final ConfigurationService configurationService = ConfigurationService.getInstance();
+
+    private final int reservationDeadlineHours = Integer.parseInt(configurationService.findById("RESERVATION_DEADLINE_HOURS").getValue());
+    private final int cancellationDeadlineHours = Integer.parseInt(configurationService.findById("CANCELLATION_DEADLINE_HOURS").getValue());
 
     @UrlMapping
     public ModelView showList() {
@@ -42,12 +51,28 @@ public class ReservationController {
     @Post
     @UrlMapping("/save")
     public ModelView saveReservation(@RequestParameter("reservation") ReservationRequest reservationRequest) {
+        Flight flight = flightService.findById(reservationRequest.getIdFilght());
+        LocalDateTime deadline = flight.getDepartureTime().minusHours(reservationDeadlineHours);
+
+        // Reservation deadline hour check
+        if (deadline.isBefore(LocalDateTime.now())) {
+            return new ModelView("redirect:/reservations");
+        }
+
         reservationService.save(reservationRequest, (Integer) session.get("idClient"));
         return new ModelView("redirect:/reservations");
     }
 
     @UrlMapping("/cancel")
     public ModelView cancelReservation(@RequestParameter("id") Integer id) {
+        Flight flight = reservationService.findById(id).getFlight();
+        LocalDateTime deadline = flight.getDepartureTime().minusHours(cancellationDeadlineHours);
+
+        // Cancellation deadline hour check
+        if (deadline.isBefore(LocalDateTime.now())) {
+            return new ModelView("redirect:/reservations");
+        }
+
         reservationService.cancel(id);
         return new ModelView("redirect:/reservations");
     }
