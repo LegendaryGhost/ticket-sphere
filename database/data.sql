@@ -2,6 +2,13 @@ INSERT INTO admin(email, password)
 VALUES ('rihantiana000@gmail.com', 'rihantiana');
 
 
+INSERT INTO configuration (config_key, display_name, config_value, description)
+VALUES ('RESERVATION_DEADLINE_HOURS', 'Reservation Deadline (hours)', '24',
+        'Number of hours before an event when reservations close'),
+       ('CANCELLATION_DEADLINE_HOURS', 'Cancellation Deadline (hours)', '12',
+        'Number of hours before an event when cancellations are allowed');
+
+
 INSERT INTO aircraft_model (name, manufacturer, description)
 VALUES ('Boeing 737', 'Boeing', 'A narrow-body aircraft widely used for short to medium-haul flights.'),
        ('Airbus A320', 'Airbus', 'A popular single-aisle aircraft for domestic and international routes.'),
@@ -29,10 +36,10 @@ VALUES ('Economy'),
 INSERT INTO aircraft_model_seat (id_aircraft_model, id_seat_type, seat_number)
 VALUES
     -- Boeing 737
-    (1, 1, 150),  -- Economy
-    (1, 2, 16),   -- Business
-    (1, 3, 8),    -- First Class
-    (1, 4, 24),   -- Premium Economy
+    (1, 1, 150), -- Economy
+    (1, 2, 16),  -- Business
+    (1, 3, 8),   -- First Class
+    (1, 4, 24),  -- Premium Economy
 
     -- Airbus A320
     (2, 1, 160),
@@ -61,18 +68,17 @@ VALUES
 
 -- Insert data into country
 INSERT INTO country (name)
-VALUES
-    ('United States'),
-    ('France'),
-    ('Germany'),
-    ('Japan'),
-    ('Brazil'),
-    ('United Kingdom'),
-    ('Canada'),
-    ('Australia'),
-    ('United Arab Emirates'),
-    ('South Africa'),
-    ('Madagascar');
+VALUES ('United States'),
+       ('France'),
+       ('Germany'),
+       ('Japan'),
+       ('Brazil'),
+       ('United Kingdom'),
+       ('Canada'),
+       ('Australia'),
+       ('United Arab Emirates'),
+       ('South Africa'),
+       ('Madagascar');
 
 
 -- Insert data into city
@@ -130,16 +136,22 @@ VALUES
 
 -- Insert flights (some direct, some with stopovers)
 INSERT INTO flight (departure_time, arrival_time, id_departure_city, id_arrival_city, id_aircraft)
-VALUES
-    ('2025-03-10 08:00:00', '2025-03-10 12:00:00', 1, 6, 1),  -- New York to London (Direct)
-    ('2025-03-11 14:30:00', '2025-03-11 22:00:00', 2, 13, 2), -- Los Angeles to Tokyo (Direct)
-    ('2025-03-12 09:00:00', '2025-03-12 18:00:00', 3, 10, 3), -- Chicago to Berlin (1 Stopover in London)
-    ('2025-03-13 06:45:00', '2025-03-13 15:30:00', 4, 8, 4),  -- Dallas to Sydney (1 Stopover in Los Angeles)
-    ('2025-03-14 10:15:00', '2025-03-14 19:45:00', 5, 17, 5); -- Miami to São Paulo (Direct)
+VALUES ('2025-03-10 08:00:00', '2025-03-10 12:00:00', 1, 6, 1),  -- New York to London (Direct)
+       ('2025-03-11 14:30:00', '2025-03-11 22:00:00', 2, 13, 2), -- Los Angeles to Tokyo (Direct)
+       ('2025-03-12 09:00:00', '2025-03-12 18:00:00', 3, 10, 3), -- Chicago to Berlin (1 Stopover in London)
+       ('2025-03-13 06:45:00', '2025-03-13 15:30:00', 4, 8, 4),  -- Dallas to Sydney (1 Stopover in Los Angeles)
+       ('2025-03-14 10:15:00', '2025-03-14 19:45:00', 5, 17, 5);
+-- Miami to São Paulo (Direct)
 
 
 -- Insert stopovers for flights that have them
 INSERT INTO flight_stopover (stopover_order, arrival_time, departure_time, id_city, id_flight)
-VALUES
-    (1, '2025-03-12 12:00:00', '2025-03-12 13:30:00', 6, 3),  -- Stopover in London for Chicago to Berlin
-    (1, '2025-03-13 10:00:00', '2025-03-13 11:30:00', 2, 4);  -- Stopover in Los Angeles for Dallas to Sydney
+VALUES (1, '2025-03-12 12:00:00', '2025-03-12 13:30:00', 6, 3), -- Stopover in London for Chicago to Berlin
+       (1, '2025-03-13 10:00:00', '2025-03-13 11:30:00', 2, 4); -- Stopover in Los Angeles for Dallas to Sydney
+
+
+INSERT INTO client_user (first_name, last_name, email, phone, password)
+VALUES ('John', 'Doe', 'john.doe@example.com', '+1234567890', 'hashed_password_1'),
+       ('Alice', 'Smith', 'alice.smith@example.com', '+9876543210', 'hashed_password_2'),
+       ('Bob', 'Johnson', 'bob.johnson@example.com', NULL, 'hashed_password_3'),
+       ('Emma', 'Brown', 'emma.brown@example.com', '+1122334455', 'hashed_password_4');

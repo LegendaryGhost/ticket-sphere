@@ -2,7 +2,7 @@ package com.tiarintsoa.ticketsphere.service;
 
 import com.tiarintsoa.ticketsphere.model.Aircraft;
 
-public class AircraftService extends CRUDService<Aircraft> {
+public class AircraftService extends CRUDService<Aircraft, Integer> {
 
     private static AircraftService instance;
 

@@ -7,25 +7,30 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Persistence;
 
-public class AdminService {
+public class AdminService extends CRUDService<AdminService, Integer> {
 
-    private final static EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+    private static AdminService instance;
 
-    public static Admin findByEmailAndPassword(LoginCredentials credentials) {
-        EntityManager em = emf.createEntityManager();
-        Admin admin = null;
+    private AdminService() {
+        super();
+    }
 
-        try {
-            admin = em.createQuery(
+    public static AdminService getInstance() {
+        if (instance == null) {
+            instance = new AdminService();
+        }
+        return instance;
+    }
+
+    public Admin findByEmailAndPassword(LoginCredentials credentials) {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery(
                             "SELECT a FROM Admin a WHERE a.email = :email AND a.password = :password", Admin.class)
                     .setParameter("email", credentials.getEmail())
                     .setParameter("password", credentials.getPassword())
                     .getSingleResult();
         } catch (NoResultException ignored) {
-        } finally {
-            em.close();
+            return null;
         }
-
-        return admin;
     }
 }

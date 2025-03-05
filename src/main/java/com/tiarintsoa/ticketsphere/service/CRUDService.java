@@ -8,7 +8,7 @@ import jakarta.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public abstract class CRUDService<T> {
+public abstract class CRUDService<T, M> {
 
     protected final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
     protected Class<T> entityClass;
@@ -28,7 +28,7 @@ public abstract class CRUDService<T> {
         em.close();
     }
 
-    public T findById(Integer id) {
+    public T findById(M id) {
         EntityManager em = emf.createEntityManager();
         T entity = em.find(entityClass, id);
         em.close();
@@ -51,7 +51,7 @@ public abstract class CRUDService<T> {
         em.close();
     }
 
-    public void delete(Integer id) {
+    public void delete(M id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         T entity = em.find(entityClass, id);

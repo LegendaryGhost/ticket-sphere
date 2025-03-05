@@ -28,7 +28,7 @@
 
     <main>
         <h1>Search form</h1>
-        <form action="${pageContext.request.contextPath}/admin/flights" method="get">
+        <form action="${pageContext.request.contextPath}/flights" method="get">
             <label for="minDepartureTime">Minimum departure time:</label><br>
             <input type="datetime-local" id="minDepartureTime" name="criteria.minDepartureTime" value="<%= DateTimeUtil.htmlFormat(criteria.getMinDepartureTime()) %>"><br>
             <label for="maxDepartureTime">Maximum departure time:</label><br>
@@ -88,9 +88,6 @@
         </form>
 
         <h1>Flights</h1>
-        <p>
-            <a href="${pageContext.request.contextPath}/admin/flights/add">Add a new flight</a>
-        </p>
         <table>
             <thead>
                 <tr>
@@ -113,8 +110,7 @@
                     <td><%= DateTimeUtil.humanFormat(flight.getArrivalTime()) %></td>
                     <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/admin/flights/update?id=<%= flight.getId() %>">Update</a>
-                        <a href="${pageContext.request.contextPath}/admin/flights/delete?id=<%= flight.getId() %>">Delete</a>
+                        <a href="${pageContext.request.contextPath}/reservations/create?idFlight=<%= flight.getId() %>">Make a reservation</a>
                     </td>
                 </tr>
                 <% } %>
