@@ -1,11 +1,11 @@
 package com.tiarintsoa.ticketsphere.service;
 
 import com.tiarintsoa.ticketsphere.dto.ReservationRequest;
+import com.tiarintsoa.ticketsphere.model.Cancellation;
 import com.tiarintsoa.ticketsphere.model.Client;
 import com.tiarintsoa.ticketsphere.model.Promotion;
 import com.tiarintsoa.ticketsphere.model.Reservation;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
     private static ReservationService instance;
 
     private final PromotionService promotionService = PromotionService.getInstance();
+    private final CancellationService cancellationService = CancellationService.getInstance();
 
     private ReservationService() {
         super();
@@ -56,5 +57,16 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
                     .setParameter("idClient", idClient)
                     .getResultList();
         }
+    }
+
+    public void cancel(Integer id) {
+        Reservation reservation = findById(id);
+
+        if (reservation.getCancellation() != null) return;
+
+        Cancellation cancellation = new Cancellation();
+        cancellation.setReservation(reservation);
+
+        cancellationService.create(cancellation);
     }
 }

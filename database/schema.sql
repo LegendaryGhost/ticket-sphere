@@ -139,6 +139,16 @@ CREATE TABLE reservation
     FOREIGN KEY (id_client_user) REFERENCES client_user (id_client_user)
 );
 
+CREATE TABLE cancellation
+(
+    id_cancellation   SERIAL,
+    cancellation_date TIMESTAMP NOT NULL DEFAULT NOW(),
+    id_reservation    INTEGER   NOT NULL,
+    PRIMARY KEY (id_cancellation),
+    UNIQUE (id_reservation),
+    FOREIGN KEY (id_reservation) REFERENCES reservation (id_reservation)
+);
+
 CREATE TABLE aircraft_model_seat
 (
     id_aircraft_model INTEGER,

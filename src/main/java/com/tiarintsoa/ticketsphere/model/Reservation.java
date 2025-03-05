@@ -40,4 +40,7 @@ public class Reservation {
     @JoinColumn(name = "id_client_user", nullable = false)
     private Client client;
 
+    @OneToOne(mappedBy = "reservation", fetch = FetchType.EAGER)
+    private Cancellation cancellation;
+
 }

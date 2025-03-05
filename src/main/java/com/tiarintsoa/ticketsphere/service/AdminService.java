@@ -23,7 +23,7 @@ public class AdminService extends CRUDService<AdminService, Integer> {
     }
 
     public Admin findByEmailAndPassword(LoginCredentials credentials) {
-        try (EntityManager em = emf.createEntityManager();) {
+        try (EntityManager em = emf.createEntityManager()) {
             return em.createQuery(
                             "SELECT a FROM Admin a WHERE a.email = :email AND a.password = :password", Admin.class)
                     .setParameter("email", credentials.getEmail())

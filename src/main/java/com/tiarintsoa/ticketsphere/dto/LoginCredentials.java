@@ -1,13 +1,14 @@
 package com.tiarintsoa.ticketsphere.dto;
 
 import com.tiarintsoa.annotation.RequestParameter;
-import lombok.Data;
+import lombok.*;
 
 @Data
 public class LoginCredentials {
 
     @RequestParameter("email")
     private String email;
+
     @RequestParameter("password")
     private String password;
 

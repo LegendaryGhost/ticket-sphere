@@ -32,6 +32,7 @@
                     <th>Seat count</th>
                     <th>Promotion</th>
                     <th>Promoted seat count</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -52,8 +53,11 @@
                     <td><%= reservation.getSeatNumber() %></td>
                     <td><%= (promotion == null ? 0 : promotion.getDiscountPercentage()) + " %"  %></td>
                     <td><%= reservation.getPromotedSeatNumber() %></td>
+                    <td><%= reservation.getCancellation() == null ? "Validated" : "Cancelled" %></td>
                     <td>
+                        <% if (reservation.getCancellation() == null) { %>
                         <a href="${pageContext.request.contextPath}/reservations/cancel?id=<%= reservation.getId() %>">Cancel</a>
+                        <% } %>
                     </td>
                 </tr>
                 <% } %>

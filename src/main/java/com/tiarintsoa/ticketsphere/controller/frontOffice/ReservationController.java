@@ -46,4 +46,10 @@ public class ReservationController {
         return new ModelView("redirect:/reservations");
     }
 
+    @UrlMapping("/cancel")
+    public ModelView cancelReservation(@RequestParameter("id") Integer id) {
+        reservationService.cancel(id);
+        return new ModelView("redirect:/reservations");
+    }
+
 }
