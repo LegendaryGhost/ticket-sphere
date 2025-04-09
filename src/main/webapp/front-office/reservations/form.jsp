@@ -18,40 +18,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make a reservation</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/custom/css/front-office.css">
 </head>
 <body>
     <%@ include file="./../components/navbar.jsp"%>
 
-    <main>
-        <h1>Make a reservation</h1>
-        <form action="${pageContext.request.contextPath}/reservations/save" method="post">
-            <label for="flight">Flight:</label><br>
-            <select name="reservation.flight" id="flight" required>
-                <option value="">-- Choose a flight --</option>
-                <% for (Flight flight : flights) { %>
-                <option
-                    value="<%= flight.getId() %>"
-                    <% if (flight.getId().equals(idFlight)) { %>
-                        selected
+    <main class="container-fluid px-4">
+        <form class="custom-form" action="${pageContext.request.contextPath}/reservations/save" method="post">
+            <h1>Make a reservation</h1>
+            <div class="mb-3">
+                <label class="form-label" for="flight">Flight:</label>
+                <select class="form-select" name="reservation.flight" id="flight" required>
+                    <option value="">-- Choose a flight --</option>
+                    <% for (Flight flight : flights) { %>
+                    <option
+                        value="<%= flight.getId() %>"
+                        <% if (flight.getId().equals(idFlight)) { %>
+                            selected
+                        <% } %>
+                    >
+                        <%= flight.getId() + " (" + flight.getDepartureCity().getName() + " - " + flight.getArrivalCity().getName() + ")" %>
+                    </option>
                     <% } %>
-                >
-                    <%= flight.getId() + " (" + flight.getDepartureCity().getName() + " - " + flight.getArrivalCity().getName() + ")" %>
-                </option>
-                <% } %>
-            </select><br>
+                </select>
+            </div>
 
-            <label for="seatType">Seat type:</label><br>
-            <select name="reservation.seatType" id="seatType" required>
-                <option value="">-- Choose a seat type --</option>
-                <% for (SeatType seatType : seatTypes) { %>
-                <option value="<%= seatType.getId() %>"><%= seatType.getName() %></option>
-                <% } %>
-            </select><br>
+            <div class="mb-3">
+                <label class="form-label" for="seatType">Seat type:</label>
+                <select class="form-select" name="reservation.seatType" id="seatType" required>
+                    <option value="">-- Choose a seat type --</option>
+                    <% for (SeatType seatType : seatTypes) { %>
+                    <option value="<%= seatType.getId() %>"><%= seatType.getName() %></option>
+                    <% } %>
+                </select>
+            </div>
 
-            <label for="seatNumber">Seat number:</label><br>
-            <input type="number" min="1" name="reservation.seatNumber" id="seatNumber" required><br>
+            <div class="mb-3">
+                <label class="form-label" for="seatNumber">Seat number:</label>
+                <input class="form-control" type="number" min="1" name="reservation.seatNumber" id="seatNumber" required>
+            </div>
 
-            <button type="submit">Reserve</button>
+            <button class="btn btn-primary w-100" type="submit">Reserve</button>
         </form>
     </main>
 
