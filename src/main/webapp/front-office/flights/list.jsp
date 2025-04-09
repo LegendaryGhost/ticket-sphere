@@ -19,103 +19,133 @@
     List<Aircraft> aircrafts = (List<Aircraft>) request.getAttribute("aircrafts");
 %>
 
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight list</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/custom/css/style.css">
 </head>
 <body>
     <%@ include file="./../components/navbar.jsp"%>
 
-    <main>
-        <h1>Search form</h1>
-        <form action="${pageContext.request.contextPath}/flights" method="get">
-            <label for="minDepartureTime">Minimum departure time:</label><br>
-            <input type="datetime-local" id="minDepartureTime" name="criteria.minDepartureTime" value="<%= DateTimeUtil.htmlFormat(criteria.getMinDepartureTime()) %>"><br>
-            <label for="maxDepartureTime">Maximum departure time:</label><br>
-            <input type="datetime-local" id="maxDepartureTime" name="criteria.maxDepartureTime" value="<%= DateTimeUtil.htmlFormat(criteria.getMaxDepartureTime()) %>"><br>
+    <main class="container-fluid px-4">
+        <form class="custom-form row g-3" action="${pageContext.request.contextPath}/flights" method="get">
+            <h1 class="text-center">Search form</h1>
 
-            <label for="departureCity">Deparutre city:</label><br>
-            <select name="criteria.departureCity" id="departureCity">
-                <option value="">All cities</option>
-                <% for (City city : cities) { %>
-                <option
-                        value="<%= city.getId() %>"
-                        <% if (city.getId().equals(criteria.getIdDepartureCity())) { %>
-                        selected
-                        <% } %>
-                >
-                    <%= city.getName() + " - " + city.getCountry().getName() %>
-                </option>
-                <% } %>
-            </select><br>
+            <div class="col-md-6">
+                <label class="form-label" for="minDepartureTime">Minimum departure time:</label>
+                <input class="form-control" type="datetime-local" id="minDepartureTime" name="criteria.minDepartureTime" value="<%= DateTimeUtil.htmlFormat(criteria.getMinDepartureTime()) %>">
+            </div>
 
-            <label for="minArrivalTime">Minimum arrival time:</label><br>
-            <input type="datetime-local" id="minArrivalTime" name="criteria.minArrivalTime" value="<%= DateTimeUtil.htmlFormat(criteria.getMinArrivalTime()) %>"><br>
-            <label for="maxArrivalTime">Maximum arrival time:</label><br>
-            <input type="datetime-local" id="maxArrivalTime" name="criteria.maxArrivalTime" value="<%= DateTimeUtil.htmlFormat(criteria.getMaxArrivalTime()) %>"><br>
+            <div class="col-md-6">
+                <label class="form-label" for="maxDepartureTime">Maximum departure time:</label>
+                <input class="form-control" type="datetime-local" id="maxDepartureTime" name="criteria.maxDepartureTime" value="<%= DateTimeUtil.htmlFormat(criteria.getMaxDepartureTime()) %>">
+            </div>
 
-            <label for="arrivalCity">Arrival city:</label><br>
-            <select name="criteria.arrivalCity" id="arrivalCity">
-                <option value="">All cities</option>
-                <% for (City city : cities) { %>
-                <option
-                        value="<%= city.getId() %>"
-                        <% if (city.getId().equals(criteria.getIdArrivalCity())) { %>
-                        selected
-                        <% } %>
-                >
-                    <%= city.getName() + " - " + city.getCountry().getName() %>
-                </option>
-                <% } %>
-            </select><br>
+            <div class="col-12">
+                <label class="form-label" for="departureCity">Deparutre city:</label>
+                <select class="form-select" name="criteria.departureCity" id="departureCity">
+                    <option value="">All cities</option>
+                    <% for (City city : cities) { %>
+                    <option
+                            value="<%= city.getId() %>"
+                            <% if (city.getId().equals(criteria.getIdDepartureCity())) { %>
+                            selected
+                            <% } %>
+                    >
+                        <%= city.getName() + " - " + city.getCountry().getName() %>
+                    </option>
+                    <% } %>
+                </select>
+            </div>
 
-            <label for="aircraft">Aircraft:</label><br>
-            <select name="criteria.aircraft" id="aircraft">
-                <option value="">All aircrafts</option>
-                <% for (Aircraft aircraft : aircrafts) { %>
-                <option
-                        value="<%= aircraft.getId() %>"
-                        <% if (aircraft.getId().equals(criteria.getIdAircraft())) { %>
-                        selected
-                        <% } %>
-                >
-                    <%= aircraft.getRegistration() + " - " + aircraft.getAircraftModel().getName() %>
-                </option>
-                <% } %>
-            </select><br>
+            <div class="col-md-6">
+                <label class="form-label" for="minArrivalTime">Minimum arrival time:</label>
+                <input class="form-control" type="datetime-local" id="minArrivalTime" name="criteria.minArrivalTime" value="<%= DateTimeUtil.htmlFormat(criteria.getMinArrivalTime()) %>">
+            </div>
 
-            <button type="submit">Search</button>
+            <div class="col-md-6">
+                <label class="form-label" for="maxArrivalTime">Maximum arrival time:</label>
+                <input class="form-control" type="datetime-local" id="maxArrivalTime" name="criteria.maxArrivalTime" value="<%= DateTimeUtil.htmlFormat(criteria.getMaxArrivalTime()) %>">
+            </div>
+
+            <div class="col-12">
+                <label class="form-label" for="arrivalCity">Arrival city:</label>
+                <select class="form-select" name="criteria.arrivalCity" id="arrivalCity">
+                    <option value="">All cities</option>
+                    <% for (City city : cities) { %>
+                    <option
+                            value="<%= city.getId() %>"
+                            <% if (city.getId().equals(criteria.getIdArrivalCity())) { %>
+                            selected
+                            <% } %>
+                    >
+                        <%= city.getName() + " - " + city.getCountry().getName() %>
+                    </option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label" for="aircraft">Aircraft:</label>
+                <select class="form-select" name="criteria.aircraft" id="aircraft">
+                    <option value="">All aircrafts</option>
+                    <% for (Aircraft aircraft : aircrafts) { %>
+                    <option
+                            value="<%= aircraft.getId() %>"
+                            <% if (aircraft.getId().equals(criteria.getIdAircraft())) { %>
+                            selected
+                            <% } %>
+                    >
+                        <%= aircraft.getRegistration() + " - " + aircraft.getAircraftModel().getName() %>
+                    </option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-primary w-100" type="submit">Search</button>
+            </div>
         </form>
 
-        <h1>Flights</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Flight number</th>
-                    <th>Departure city</th>
-                    <th>Departure time</th>
-                    <th>Arrival city</th>
-                    <th>Arrival time</th>
-                    <th>Aircraft</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for(Flight flight : flights) { %>
-                <tr>
-                    <td><%= flight.getId() %></td>
-                    <td><%= flight.getDepartureCity().getName() + " " + flight.getDepartureCity().getCountry().getName() %></td>
-                    <td><%= DateTimeUtil.humanFormat(flight.getDepartureTime()) %></td>
-                    <td><%= flight.getArrivalCity().getName() + " " + flight.getArrivalCity().getCountry().getName() %></td>
-                    <td><%= DateTimeUtil.humanFormat(flight.getArrivalTime()) %></td>
-                    <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/reservations/create?idFlight=<%= flight.getId() %>">Make a reservation</a>
-                    </td>
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
+        <div class="table-container">
+            <h1 class="mb-4 text-center">Flights</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Flight number</th>
+                        <th>Departure city</th>
+                        <th>Departure time</th>
+                        <th>Arrival city</th>
+                        <th>Arrival time</th>
+                        <th>Aircraft</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(Flight flight : flights) { %>
+                    <tr>
+                        <td><%= flight.getId() %></td>
+                        <td><%= flight.getDepartureCity().getName() + " - " + flight.getDepartureCity().getCountry().getName() %></td>
+                        <td><%= DateTimeUtil.humanFormat(flight.getDepartureTime()) %></td>
+                        <td><%= flight.getArrivalCity().getName() + " - " + flight.getArrivalCity().getCountry().getName() %></td>
+                        <td><%= DateTimeUtil.humanFormat(flight.getArrivalTime()) %></td>
+                        <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/reservations/create?idFlight=<%= flight.getId() %>"
+                                class="btn btn-sm btn-outline-success">
+                                Reserve
+                            </a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
     </main>
+
+    <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

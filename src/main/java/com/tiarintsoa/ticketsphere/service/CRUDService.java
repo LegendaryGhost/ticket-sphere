@@ -1,8 +1,8 @@
 package com.tiarintsoa.ticketsphere.service;
 
+import com.tiarintsoa.ticketsphere.utils.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
 import java.lang.reflect.ParameterizedType;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class CRUDService<T, M> {
 
-    protected final EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+    protected final EntityManagerFactory emf = JPAUtil.getEntityManagerFactory();
     protected Class<T> entityClass;
 
     @SuppressWarnings("unchecked")

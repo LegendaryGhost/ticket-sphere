@@ -1,0 +1,25 @@
+.custom-form {
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Table style (start) */
+
+.table-container {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.status {
+    font-weight: bold;
+}
+
+/* Table style (end) */

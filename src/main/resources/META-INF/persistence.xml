@@ -7,9 +7,6 @@
         <!-- Specify the JPA provider -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <!-- List your entity classes -->
-        <class>com.tiarintsoa.ticketsphere.model.Admin</class>
-
         <!-- Optionally control class scanning -->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
 
