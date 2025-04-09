@@ -13,34 +13,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configurations list</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/custom/css/style.css">
 </head>
 <body>
     <%@ include file="./../components/navbar.jsp"%>
 
-    <main>
-        <h1>Configurations list</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Key</th>
-                    <th>Value</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for(Configuration configuration : configurations) { %>
-                <tr>
-                    <td><%= configuration.getDisplayName() %></td>
-                    <td><%= configuration.getValue() %></td>
-                    <td><%= configuration.getDescription() %></td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/admin/configurations/update?key=<%= configuration.getKey() %>">Update</a>
-                    </td>
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
+    <main class="container-fluid px-4">
+        <div class="table-container">
+            <h1 class="text-center">Configurations</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(Configuration configuration : configurations) { %>
+                    <tr>
+                        <td><%= configuration.getDisplayName() %></td>
+                        <td><%= configuration.getValue() %></td>
+                        <td><%= configuration.getDescription() %></td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/admin/configurations/update?key=<%= configuration.getKey() %>"
+                                class="btn btn-sm btn-outline-primary">
+                                Update
+                            </a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
     </main>
 
     <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>

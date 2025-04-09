@@ -140,11 +140,11 @@
                         <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
                         <td>
                             <a href="${pageContext.request.contextPath}/admin/flights/update?id=<%= flight.getId() %>"
-                                class="btn btn-outline-primary">
+                                class="btn btn-sm btn-outline-primary">
                                 Update
                             </a>
                             <a href="${pageContext.request.contextPath}/admin/flights/delete?id=<%= flight.getId() %>"
-                                class="btn btn-outline-danger">
+                                class="btn btn-sm btn-outline-danger">
                                 Delete
                             </a>
                         </td>
