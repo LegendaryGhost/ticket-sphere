@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make a reservation</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/custom/css/front-office.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/custom/css/style.css">
 </head>
 <body>
     <%@ include file="./../components/navbar.jsp"%>

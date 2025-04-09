@@ -9,7 +9,6 @@ import com.tiarintsoa.controller.ModelView;
 import com.tiarintsoa.session.WinterSession;
 import com.tiarintsoa.ticketsphere.dto.ReservationRequest;
 import com.tiarintsoa.ticketsphere.model.Flight;
-import com.tiarintsoa.ticketsphere.model.Reservation;
 import com.tiarintsoa.ticketsphere.service.ConfigurationService;
 import com.tiarintsoa.ticketsphere.service.FlightService;
 import com.tiarintsoa.ticketsphere.service.ReservationService;
@@ -55,6 +54,7 @@ public class ReservationController {
         LocalDateTime deadline = flight.getDepartureTime().minusHours(reservationDeadlineHours);
 
         // Reservation deadline hour check
+        // TODO: add warning message
         if (deadline.isBefore(LocalDateTime.now())) {
             return new ModelView("redirect:/reservations");
         }
@@ -69,6 +69,7 @@ public class ReservationController {
         LocalDateTime deadline = flight.getDepartureTime().minusHours(cancellationDeadlineHours);
 
         // Cancellation deadline hour check
+        // TODO: add warning message
         if (deadline.isBefore(LocalDateTime.now())) {
             return new ModelView("redirect:/reservations");
         }

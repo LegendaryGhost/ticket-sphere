@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight list</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/custom/css/front-office.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/custom/css/style.css">
 </head>
 <body>
     <%@ include file="./../components/navbar.jsp"%>
@@ -105,7 +105,9 @@
                 </select>
             </div>
 
-            <button class="btn btn-primary w-100" type="submit">Search</button>
+            <div class="col-12">
+                <button class="btn btn-primary w-100" type="submit">Search</button>
+            </div>
         </form>
 
         <div class="table-container">
