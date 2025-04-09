@@ -11,25 +11,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update configuration</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/custom/css/style.css">
 </head>
 <body>
     <%@ include file="./../components/navbar.jsp"%>
 
-    <main>
-        <h1>Update configuration</h1>
-        <form method="post" action="${pageContext.request.contextPath}/admin/configurations/save">
+    <main class="container-fluid px-4">
+        <form class="custom-form" method="post" action="${pageContext.request.contextPath}/admin/configurations/save">
+            <h1 class="text-center">Update configuration</h1>
             <input type="hidden" name="configuration.key" value="<%= configuration.getKey() %>">
 
-            <label for="displayName">Display name:</label><br>
-            <input type="text" id="displayName" name="configuration.displayName" value="<%= configuration.getDisplayName() %>" required><br>
+            <div class="mb-3">
+                <label class="form-label" for="displayName">Display name:</label>
+                <input class="form-control" type="text" id="displayName" name="configuration.displayName" value="<%= configuration.getDisplayName() %>" required>
+            </div>
 
-            <label for="value">Value:</label><br>
-            <input type="text" id="value" name="configuration.value" value="<%= configuration.getValue() %>" required><br>
+            <div class="mb-3">
+                <label class="form-label" for="value">Value:</label>
+                <input class="form-control" type="text" id="value" name="configuration.value" value="<%= configuration.getValue() %>" required>
+            </div>
 
-            <label for="description">Description:</label><br>
-            <input type="text" id="description" name="configuration.description" value="<%= configuration.getDescription() %>" required><br>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description:</label>
+                <input class="form-control" type="text" id="description" name="configuration.description" value="<%= configuration.getDescription() %>" required>
+            </div>
 
-            <button type="submit">Update</button>
+            <button class="btn btn-primary w-100" type="submit">Update</button>
         </form>
     </main>
 
