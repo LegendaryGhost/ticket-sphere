@@ -12,7 +12,7 @@
     Integer idFlight = (Integer) request.getAttribute("idFlight");
 %>
 
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,7 @@
 
     <main class="container-fluid px-4">
         <form class="custom-form" action="${pageContext.request.contextPath}/reservations/save" method="post">
-            <h1>Make a reservation</h1>
+            <h1 class="text-center">Make a reservation</h1>
             <div class="mb-3">
                 <label class="form-label" for="flight">Flight:</label>
                 <select class="form-select" name="reservation.flight" id="flight" required>
