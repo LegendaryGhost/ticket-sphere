@@ -15,8 +15,11 @@ public class Reservation {
     @Column(name = "id_reservation")
     private Integer id;
 
-    @Column(name = "seat_number")
-    private Integer seatNumber = 1;
+    @Column(name = "adult_count")
+    private Integer adultCount = 1;
+
+    @Column(name = "child_count")
+    private Integer childCount = 0;
 
     @Column(name = "promoted_seat_number")
     private Integer promotedSeatNumber = 0;

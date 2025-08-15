@@ -34,7 +34,8 @@
                     <th>Aircraft</th>
                     <th>Reservation Time</th>
                     <th>Seat Type</th>
-                    <th>Seat Count</th>
+                    <th>Adult Count</th>
+                    <th>Child Count</th>
                     <th>Promotion</th>
                     <th>Promoted Seats</th>
                     <th>Status</th>
@@ -55,7 +56,8 @@
                     <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
                     <td><%= DateTimeUtil.humanFormat(reservation.getDateTime()) %></td>
                     <td><%= reservation.getSeatType().getName() %></td>
-                    <td><%= reservation.getSeatNumber() %></td>
+                    <td><%= reservation.getAdultCount() %></td>
+                    <td><%= reservation.getChildCount() %></td>
                     <td><%= (promotion == null ? 0 : promotion.getDiscountPercentage()) + " %"  %></td>
                     <td><%= reservation.getPromotedSeatNumber() %></td>
                     <td>

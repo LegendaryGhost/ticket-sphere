@@ -125,7 +125,8 @@ CREATE TABLE promotion
 CREATE TABLE reservation
 (
     id_reservation       SERIAL,
-    seat_number          INTEGER   NOT NULL,
+    adult_count          INTEGER   NOT NULL DEFAULT 1,
+    child_count          INTEGER   NOT NULL DEFAULT 0,
     promoted_seat_number INTEGER   NOT NULL DEFAULT 0,
     reservation_date     TIMESTAMP NOT NULL DEFAULT NOW(),
     id_promotion         INTEGER,

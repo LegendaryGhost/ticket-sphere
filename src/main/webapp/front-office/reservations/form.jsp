@@ -54,8 +54,13 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="seatNumber">Seat number:</label>
-                <input class="form-control" type="number" min="1" name="reservation.seatNumber" id="seatNumber" required>
+                <label class="form-label" for="adultCount">Adult count:</label>
+                <input class="form-control" type="number" min="0" name="reservation.adultCount" id="adultCount" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="childCount">Child count:</label>
+                <input class="form-control" type="number" min="0" name="reservation.childCount" id="childCount" required>
             </div>
 
             <button class="btn btn-primary w-100" type="submit">Reserve</button>

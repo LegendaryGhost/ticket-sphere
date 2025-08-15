@@ -14,6 +14,11 @@ public class AdminAuthController {
     private WinterSession session;
     private final AdminService adminService = AdminService.getInstance();
 
+    @UrlMapping
+    public ModelView index() {
+        return new ModelView("redirect:/admin-auth/login");
+    }
+
     @UrlMapping("/login")
     public ModelView login() {
         return new ModelView("back-office/login.jsp");

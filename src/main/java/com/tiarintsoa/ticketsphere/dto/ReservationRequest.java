@@ -10,26 +10,30 @@ import lombok.Data;
 public class ReservationRequest {
 
     @RequestParameter("flight")
-    private Integer idFilght;
+    private Integer idFlight;
 
     @RequestParameter("seatType")
     private Integer idSeatType;
 
-    @RequestParameter("seatNumber")
-    private Integer seatNumber;
+    @RequestParameter("adultCount")
+    private Integer adultCount;
+
+    @RequestParameter("childCount")
+    private Integer childCount;
 
     public Reservation toReservation() {
         Reservation reservation = new Reservation();
 
         Flight flight = new Flight();
-        flight.setId(idFilght);
+        flight.setId(idFlight);
         reservation.setFlight(flight);
 
         SeatType seatType = new SeatType();
         seatType.setId(idSeatType);
         reservation.setSeatType(seatType);
 
-        reservation.setSeatNumber(seatNumber);
+        reservation.setAdultCount(adultCount);
+        reservation.setChildCount(childCount);
 
         return reservation;
     }
