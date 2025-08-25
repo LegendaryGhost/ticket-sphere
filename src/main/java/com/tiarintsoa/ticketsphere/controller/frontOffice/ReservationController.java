@@ -50,7 +50,7 @@ public class ReservationController {
     @Post
     @UrlMapping("/save")
     public ModelView saveReservation(@RequestParameter("reservation") ReservationRequest reservationRequest) {
-        Flight flight = flightService.findById(reservationRequest.getIdFilght());
+        Flight flight = flightService.findById(reservationRequest.getIdFlight());
         LocalDateTime deadline = flight.getDepartureTime().minusHours(reservationDeadlineHours);
 
         // Reservation deadline hour check
