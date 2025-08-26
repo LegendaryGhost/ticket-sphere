@@ -11,6 +11,7 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/seat-prices/form">Set seat </a>
                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/promotions">Promotions</a>
                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/promotions/form">Add a promotion</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/admin/reservations">Reservations</a>
                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/configurations">Configurations</a>
                 <a class="nav-link" href="${pageContext.request.contextPath}/admin-auth/logout">Logout</a>
             </div>

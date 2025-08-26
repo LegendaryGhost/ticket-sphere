@@ -3,6 +3,7 @@
 <%@ page import="com.tiarintsoa.ticketsphere.model.Reservation" %>
 <%@ page import="com.tiarintsoa.ticketsphere.model.Flight" %>
 <%@ page import="com.tiarintsoa.ticketsphere.model.Promotion" %>
+<%@ page import="com.tiarintsoa.ticketsphere.model.Client" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <%
@@ -14,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservation history</title>
+    <title>Reservation list</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/custom/css/style.css">
 </head>
@@ -23,37 +24,33 @@
 
     <main class="container-fluid px-4">
         <div class="table-container">
-            <h1 class="mb-4 text-center">Reservation history</h1>
+            <h1 class="mb-4 text-center">Reservations</h1>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Departure City</th>
-                    <th>Departure Time</th>
-                    <th>Arrival City</th>
-                    <th>Arrival Time</th>
-                    <th>Aircraft</th>
-                    <th>Reservation Time</th>
+                    <th>Flight number</th>
+                    <th>Client</th>
+                    <th>Reservation Date</th>
                     <th>Seat Type</th>
                     <th>Adult Count</th>
                     <th>Child Count</th>
                     <th>Discount price</th>
                     <th>Promoted Seats</th>
+                    <th>Paid</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th>Cancellation Date</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%
                     for(Reservation reservation : reservations) {
                         Flight flight = reservation.getFlight();
+                        Client client = reservation.getClient();
                         Promotion promotion = reservation.getPromotion();
                 %>
                 <tr>
-                    <td><%= flight.getDepartureCity().getName() + " - " + flight.getDepartureCity().getCountry().getName() %></td>
-                    <td><%= DateTimeUtil.humanFormat(flight.getDepartureTime()) %></td>
-                    <td><%= flight.getArrivalCity().getName() + " - " + flight.getArrivalCity().getCountry().getName() %></td>
-                    <td><%= DateTimeUtil.humanFormat(flight.getArrivalTime()) %></td>
-                    <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
+                    <td><%= flight.getId() %></td>
+                    <td><%= client.getFirstName() + " " + client.getLastName() %></td>
                     <td><%= DateTimeUtil.humanFormat(reservation.getReservationDateTime()) %></td>
                     <td><%= reservation.getSeatType().getName() %></td>
                     <td><%= reservation.getAdultCount() %></td>
@@ -61,6 +58,12 @@
                     <td><%= (promotion == null ? 0 : promotion.getDiscountPrice())  %></td>
                     <td><%= reservation.getPromotedSeatNumber() %></td>
                     <td>
+                        <% if (reservation.getPaid()) { %>
+                        <span class="badge bg-success status">Paid</span>
+                        <% } else { %>
+                        <span class="badge bg-danger status">Not paid</span>
+                        <% } %>
+                    </td><td>
                         <% if (reservation.getCancellationDateTime() == null) { %>
                         <span class="badge bg-success status">Validated</span>
                         <% } else { %>
@@ -68,11 +71,8 @@
                         <% } %>
                     </td>
                     <td>
-                        <% if (reservation.getCancellationDateTime() == null) { %>
-                        <a href="${pageContext.request.contextPath}/reservations/cancel?id=<%= reservation.getId() %>"
-                           class="btn btn-sm btn-outline-danger">
-                            Cancel
-                        </a>
+                        <% if (reservation.getCancellationDateTime() != null) { %>
+                        <%= DateTimeUtil.humanFormat(reservation.getCancellationDateTime()) %>
                         <% } %>
                     </td>
                 </tr>
