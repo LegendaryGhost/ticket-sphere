@@ -1,10 +1,14 @@
 package com.tiarintsoa.ticketsphere.controller.backOffice;
 
 import com.tiarintsoa.annotation.Controller;
+import com.tiarintsoa.annotation.Post;
+import com.tiarintsoa.annotation.RequestParameter;
 import com.tiarintsoa.annotation.UrlMapping;
 import com.tiarintsoa.authentication.annotation.Authenticated;
 import com.tiarintsoa.controller.ModelView;
 import com.tiarintsoa.ticketsphere.service.ReservationService;
+
+import java.time.LocalDate;
 
 @Controller
 @Authenticated(roles = "admin")
@@ -26,6 +30,18 @@ public class ReservationController {
         modelView.addObject("totalIncome", reservationService.getTotalIncome());
         modelView.addObject("missingIncome", reservationService.getMissingIncome());
         return modelView;
+    }
+
+    @UrlMapping("/reallocate/form")
+    public ModelView showReallocationForm() {
+        return new ModelView("back-office/reservations/reallocate-form.jsp");
+    }
+
+    @UrlMapping("/reallocate")
+    @Post
+    public ModelView reallocate(@RequestParameter("reallocationDate") LocalDate reallocationDate) {
+        reservationService.reallocateReservations(reallocationDate);
+        return new ModelView("redirect:/admin/reservations");
     }
 
 }

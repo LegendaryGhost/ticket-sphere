@@ -96,4 +96,37 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
             return 0.0;
         }
     }
+
+    public void reallocateReservations(LocalDate reallocationDate) {
+        List<Promotion> promotions = promotionService.findBeforeDateOrderByDeadline(reallocationDate);
+
+        for (Promotion promotion : promotions) {
+            List<Reservation> overdueReservations = findNotPaidByPromotionId(promotion.getId());
+            for (Reservation reservation : overdueReservations) {
+                reservation.setCancellationDateTime(LocalDateTime.now());
+                update(reservation);
+            }
+
+            int overdueSeatCount = overdueReservations.stream()
+                    .mapToInt(r -> r.getAdultCount() + r.getChildCount())
+                    .sum();
+            Promotion nextPromotion = promotionService.findNextPromotion(promotion);
+            if (nextPromotion != null) {
+                nextPromotion.setSeatCount(nextPromotion.getSeatCount() + overdueSeatCount);
+                promotionService.update(nextPromotion);
+            }
+        }
+    }
+
+    private List<Reservation> findNotPaidByPromotionId(Integer id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT re FROM Reservation re WHERE re.promotion.id = :id AND re.paid = FALSE";
+
+            return em.createQuery(jpql, Reservation.class)
+                    .setParameter("id", id)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return List.of();
+        }
+    }
 }

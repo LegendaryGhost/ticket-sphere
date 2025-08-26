@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class PromotionService extends CRUDService<Promotion, Integer> {
 
@@ -64,6 +65,36 @@ public class PromotionService extends CRUDService<Promotion, Integer> {
                     .setParameter("idFlight", idFlight)
                     .setParameter("idSeatType", idSeatType)
                     .setParameter("now", date)
+                    .setMaxResults(1) // LIMIT 1
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Promotion> findBeforeDateOrderByDeadline(LocalDate reallocationDate) {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT pr FROM Promotion pr WHERE pr.deadline < :reallocationDate ORDER BY pr.deadline ASC";
+
+            return em.createQuery(jpql, Promotion.class)
+                    .setParameter("reallocationDate", reallocationDate)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return List.of();
+        }
+    }
+
+    public Promotion findNextPromotion(Promotion promotion) {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT pr FROM Promotion pr WHERE pr.flight.id = :idFlight AND pr.seatType.id = :idSeatType AND pr.deadline > :deadline ORDER BY pr.deadline ASC";
+
+            return em.createQuery(jpql, Promotion.class)
+                    .setParameter("idFlight", promotion.getFlight().getId())
+                    .setParameter("idSeatType", promotion.getSeatType().getId())
+                    .setParameter("deadline", promotion.getDeadline())
                     .setMaxResults(1) // LIMIT 1
                     .getResultStream()
                     .findFirst()
