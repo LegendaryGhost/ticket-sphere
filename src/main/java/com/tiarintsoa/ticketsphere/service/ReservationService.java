@@ -1,12 +1,13 @@
 package com.tiarintsoa.ticketsphere.service;
 
 import com.tiarintsoa.ticketsphere.dto.ReservationRequest;
-import com.tiarintsoa.ticketsphere.model.Cancellation;
 import com.tiarintsoa.ticketsphere.model.Client;
 import com.tiarintsoa.ticketsphere.model.Promotion;
 import com.tiarintsoa.ticketsphere.model.Reservation;
 import jakarta.persistence.EntityManager;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ReservationService extends CRUDService<Reservation, Integer> {
@@ -14,7 +15,6 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
     private static ReservationService instance;
 
     private final PromotionService promotionService = PromotionService.getInstance();
-    private final CancellationService cancellationService = CancellationService.getInstance();
 
     private ReservationService() {
         super();
@@ -30,13 +30,13 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
     public void save(ReservationRequest request, Integer idClient) {
         Reservation reservation = request.toReservation();
 
-        Promotion promotion = promotionService.findByIdFlightAndIdSeatType(request.getIdFlight(), request.getIdSeatType());
+        Promotion promotion = promotionService.findByFlightSeatTypeAndDate(request.getIdFlight(), request.getIdSeatType(), LocalDate.now());
         if (promotion != null) {
             int takenPromotionSeats = promotionService.findTakenPromotionSeats(promotion.getId());
 
-            if (takenPromotionSeats < promotion.getSeatNumber()) {
-                int availableSeats = promotion.getSeatNumber() - takenPromotionSeats;
-                Integer promotedSeatNumber = availableSeats >= reservation.getAdultCount() ? reservation.getAdultCount() : availableSeats;
+            if (takenPromotionSeats < promotion.getSeatCount()) {
+                int availableSeats = promotion.getSeatCount() - takenPromotionSeats;
+                Integer promotedSeatNumber = Math.min(availableSeats, reservation.getAdultCount() + reservation.getChildCount());
                 reservation.setPromotion(promotion);
                 reservation.setPromotedSeatNumber(promotedSeatNumber);
             }
@@ -62,11 +62,9 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
     public void cancel(Integer id) {
         Reservation reservation = findById(id);
 
-        if (reservation.getCancellation() != null) return;
+        if (reservation.getCancellationDateTime() != null) return;
 
-        Cancellation cancellation = new Cancellation();
-        cancellation.setReservation(reservation);
-
-        cancellationService.create(cancellation);
+        reservation.setCancellationDateTime(LocalDateTime.now());
+        update(reservation);
     }
 }

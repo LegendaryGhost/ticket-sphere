@@ -20,6 +20,13 @@ public class PromotionController {
     private final SeatTypeService seatTypeService = SeatTypeService.getInstance();
     private final PromotionService promotionService = PromotionService.getInstance();
 
+    @UrlMapping
+    public ModelView promotionList() {
+        ModelView modelView = new ModelView("back-office/promotions/list.jsp");
+        modelView.addObject("promotions", promotionService.findAll());
+        return modelView;
+    }
+
     @UrlMapping("/form")
     public ModelView showForm() {
         ModelView modelView = new ModelView("back-office/promotions/form.jsp");
@@ -31,7 +38,7 @@ public class PromotionController {
     @Post
     @UrlMapping("/save")
     public ModelView savePromotion(@RequestParameter("promotion") PromotionRequest promotionRequest) {
-        promotionService.createOrUpdate(promotionRequest);
+        promotionService.create(promotionRequest);
         return new ModelView("redirect:/admin/flights");
     }
 

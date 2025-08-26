@@ -22,6 +22,10 @@ public class Aircraft {
     private LocalDate manufactureDate;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_company", nullable = false)
+    private Company company;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_aircraft_model", nullable = false)
     private AircraftModel aircraftModel;
 

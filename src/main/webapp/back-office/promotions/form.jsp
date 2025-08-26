@@ -49,13 +49,18 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="discountPercentage">Discount percentage (%):</label>
-                <input class="form-control" type="number" min="0.01" step="0.01" name="promotion.discountPercentage" id="discountPercentage" required>
+                <label class="form-label" for="discountPrice">Discount price:</label>
+                <input class="form-control" type="number" min="0.01" step="0.01" name="promotion.discountPrice" id="discountPrice" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="seatNumber">Seat number:</label>
-                <input class="form-control" type="number" min="1" name="promotion.seatNumber" id="seatNumber" required>
+                <label class="form-label" for="seatCount">Seat count:</label>
+                <input class="form-control" type="number" min="1" name="promotion.seatCount" id="seatCount" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="deadline">Deadline:</label>
+                <input class="form-control" type="date" name="promotion.deadline" id="deadline" required>
             </div>
 
             <button class="btn btn-primary w-100" type="submit">Save</button>

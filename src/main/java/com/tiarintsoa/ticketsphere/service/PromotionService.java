@@ -7,9 +7,13 @@ import com.tiarintsoa.ticketsphere.model.SeatType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 
+import java.time.LocalDate;
+
 public class PromotionService extends CRUDService<Promotion, Integer> {
 
     private static PromotionService instance;
+    private final static FlightService flightService = FlightService.getInstance();
+    private final static SeatTypeService seatTypeService = SeatTypeService.getInstance();
 
     private PromotionService() {
         super();
@@ -22,44 +26,20 @@ public class PromotionService extends CRUDService<Promotion, Integer> {
         return instance;
     }
 
-    public void createOrUpdate(PromotionRequest request) {
-        Promotion promotion = findByIdFlightAndIdSeatType(request.getIdFlight(), request.getIdSeatType());
-        if (promotion == null) {
-            promotion = new Promotion();
+    public void create(PromotionRequest request) {
+        Promotion promotion = new Promotion();
 
-            Flight flight = new Flight();
-            flight.setId(request.getIdFlight());
-            promotion.setFlight(flight);
+        promotion.setDiscountPrice(request.getDiscountPrice());
+        promotion.setSeatCount(request.getSeatCount());
+        promotion.setDeadline(request.getDeadline());
 
-            SeatType seatType = new SeatType();
-            seatType.setId(request.getIdSeatType());
-            promotion.setSeatType(seatType);
+        Flight flight = flightService.findById(request.getIdFlight());
+        promotion.setFlight(flight);
 
-            promotion.setDiscountPercentage(request.getDiscountPercentage());
-            promotion.setSeatNumber(request.getSeatNumber());
+        SeatType seatType = seatTypeService.findById(request.getIdSeatType());
+        promotion.setSeatType(seatType);
 
-            create(promotion);
-        } else {
-            promotion.setDiscountPercentage(request.getDiscountPercentage());
-            promotion.setSeatNumber(request.getSeatNumber());
-            update(promotion);
-        }
-    }
-
-    public Promotion findByIdFlightAndIdSeatType(Integer idFlight, Integer idSeatType) {
-        try (EntityManager em = emf.createEntityManager()) {
-            // Create a JPQL query to find the SeatPrice by idFlight and idSeatType
-            String jpql = "SELECT pr FROM Promotion pr WHERE pr.flight.id = :idFlight AND pr.seatType.id = :idSeatType";
-
-            // Execute the query and set the parameters
-            return em.createQuery(jpql, Promotion.class)
-                    .setParameter("idFlight", idFlight)
-                    .setParameter("idSeatType", idSeatType)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            // Handle the case where no result is found
-            return null;
-        }
+        create(promotion);
     }
 
     public int findTakenPromotionSeats(Integer id) {
@@ -76,4 +56,21 @@ public class PromotionService extends CRUDService<Promotion, Integer> {
         }
     }
 
+    public Promotion findByFlightSeatTypeAndDate(Integer idFlight, Integer idSeatType, LocalDate date) {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT pr FROM Promotion pr WHERE pr.flight.id = :idFlight AND pr.seatType.id = :idSeatType AND pr.deadline >= :now ORDER BY pr.deadline DESC";
+
+            return em.createQuery(jpql, Promotion.class)
+                    .setParameter("idFlight", idFlight)
+                    .setParameter("idSeatType", idSeatType)
+                    .setParameter("now", date)
+                    .setMaxResults(1) // LIMIT 1
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

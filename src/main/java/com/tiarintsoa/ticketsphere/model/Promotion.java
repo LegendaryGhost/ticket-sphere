@@ -3,6 +3,8 @@ package com.tiarintsoa.ticketsphere.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 @Entity
 @Table(name = "promotion")
@@ -13,11 +15,14 @@ public class Promotion {
     @Column(name = "id_promotion")
     private Integer id;
 
-    @Column(name = "discount_percentage")
-    private Double discountPercentage;
+    @Column(name = "discount_price")
+    private Double discountPrice;
 
-    @Column(name = "seat_number")
-    private Integer seatNumber;
+    @Column(name = "seat_count")
+    private Integer seatCount;
+
+    @Column(name = "deadline")
+    private LocalDate deadline;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_flight", nullable = false)

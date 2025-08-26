@@ -36,7 +36,7 @@
                     <th>Seat Type</th>
                     <th>Adult Count</th>
                     <th>Child Count</th>
-                    <th>Promotion</th>
+                    <th>Discount price</th>
                     <th>Promoted Seats</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -54,21 +54,21 @@
                     <td><%= flight.getArrivalCity().getName() + " - " + flight.getArrivalCity().getCountry().getName() %></td>
                     <td><%= DateTimeUtil.humanFormat(flight.getArrivalTime()) %></td>
                     <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
-                    <td><%= DateTimeUtil.humanFormat(reservation.getDateTime()) %></td>
+                    <td><%= DateTimeUtil.humanFormat(reservation.getReservationDateTime()) %></td>
                     <td><%= reservation.getSeatType().getName() %></td>
                     <td><%= reservation.getAdultCount() %></td>
                     <td><%= reservation.getChildCount() %></td>
-                    <td><%= (promotion == null ? 0 : promotion.getDiscountPercentage()) + " %"  %></td>
+                    <td><%= (promotion == null ? 0 : promotion.getDiscountPrice())  %></td>
                     <td><%= reservation.getPromotedSeatNumber() %></td>
                     <td>
-                        <% if (reservation.getCancellation() == null) { %>
+                        <% if (reservation.getCancellationDateTime() == null) { %>
                         <span class="badge bg-success status">Validated</span>
                         <% } else { %>
                         <span class="badge bg-danger status">Cancelled</span>
                         <% } %>
                     </td>
                     <td>
-                        <% if (reservation.getCancellation() == null) { %>
+                        <% if (reservation.getCancellationDateTime() == null) { %>
                         <a href="${pageContext.request.contextPath}/reservations/cancel?id=<%= reservation.getId() %>"
                            class="btn btn-sm btn-outline-danger">
                             Cancel

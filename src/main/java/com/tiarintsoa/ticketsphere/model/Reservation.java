@@ -25,7 +25,13 @@ public class Reservation {
     private Integer promotedSeatNumber = 0;
 
     @Column(name = "reservation_date")
-    private LocalDateTime dateTime = LocalDateTime.now();
+    private LocalDateTime reservationDateTime = LocalDateTime.now();
+
+    @Column(name = "cancellation_date")
+    private LocalDateTime cancellationDateTime;
+
+    @Column(name = "paid")
+    private Boolean paid;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_promotion")
@@ -42,8 +48,5 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_client_user", nullable = false)
     private Client client;
-
-    @OneToOne(mappedBy = "reservation", fetch = FetchType.EAGER)
-    private Cancellation cancellation;
 
 }
