@@ -20,4 +20,12 @@ public class ReservationController {
         return modelView;
     }
 
+    @UrlMapping("/dashboard")
+    public ModelView reservationDashboard() {
+        ModelView modelView = new ModelView("back-office/reservations/dashboard.jsp");
+        modelView.addObject("totalIncome", reservationService.getTotalIncome());
+        modelView.addObject("missingIncome", reservationService.getMissingIncome());
+        return modelView;
+    }
+
 }

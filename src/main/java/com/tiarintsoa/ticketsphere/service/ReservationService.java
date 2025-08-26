@@ -5,6 +5,7 @@ import com.tiarintsoa.ticketsphere.model.Client;
 import com.tiarintsoa.ticketsphere.model.Promotion;
 import com.tiarintsoa.ticketsphere.model.Reservation;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -66,5 +67,33 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
 
         reservation.setCancellationDateTime(LocalDateTime.now());
         update(reservation);
+    }
+
+    public double getTotalIncome() {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT SUM((re.adultCount * re.promotion.discountPrice) + (re.childCount * re.promotion.discountPrice)) " +
+                    "FROM Reservation re WHERE re.cancellationDateTime IS NULL AND re.paid = TRUE";
+
+            Double totalIncome = em.createQuery(jpql, Double.class)
+                    .getSingleResult();
+
+            return totalIncome != null ? totalIncome : 0.0;
+        } catch (NoResultException e) {
+            return 0.0;
+        }
+    }
+
+    public double getMissingIncome() {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT SUM((re.adultCount * re.promotion.discountPrice) + (re.childCount * re.promotion.discountPrice)) " +
+                    "FROM Reservation re WHERE re.cancellationDateTime IS NOT NULL AND paid = FALSE";
+
+            Double missingIncome = em.createQuery(jpql, Double.class)
+                    .getSingleResult();
+
+            return missingIncome != null ? missingIncome : 0.0;
+        } catch (NoResultException e) {
+            return 0.0;
+        }
     }
 }

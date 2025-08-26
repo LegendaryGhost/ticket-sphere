@@ -44,7 +44,7 @@
                         <td><%= promotion.getFlight().getId() %></td>
                         <td><%= promotion.getSeatType().getName() %></td>
                         <td><%= promotion.getSeatCount() %></td>
-                        <td><%= promotion.getDiscountPrice() %> USD</td>
+                        <td><%= promotion.getDiscountPrice() %> €</td>
                         <td><%= DateTimeUtil.humanFormat(promotion.getDeadline()) %></td>
                         <td>
                             <a href="${pageContext.request.contextPath}/admin/promotions/delete?id=<%= promotion.getId() %>"

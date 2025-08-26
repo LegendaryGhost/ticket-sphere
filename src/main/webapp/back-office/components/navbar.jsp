@@ -7,6 +7,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
+                <a class="nav-link" href="${pageContext.request.contextPath}/admin/reservations/dashboard">Dashboard</a>
                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/flights">Flights</a>
                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/seat-prices/form">Set seat </a>
                 <a class="nav-link" href="${pageContext.request.contextPath}/admin/promotions">Promotions</a>

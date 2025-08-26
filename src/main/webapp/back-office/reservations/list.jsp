@@ -55,7 +55,7 @@
                     <td><%= reservation.getSeatType().getName() %></td>
                     <td><%= reservation.getAdultCount() %></td>
                     <td><%= reservation.getChildCount() %></td>
-                    <td><%= (promotion == null ? 0 : promotion.getDiscountPrice())  %></td>
+                    <td><%= (promotion == null ? 0 : promotion.getDiscountPrice()) %> €</td>
                     <td><%= reservation.getPromotedSeatNumber() %></td>
                     <td>
                         <% if (reservation.getPaid()) { %>
