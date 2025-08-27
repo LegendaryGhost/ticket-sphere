@@ -18,8 +18,11 @@ public class Promotion {
     @Column(name = "discount_price")
     private Double discountPrice;
 
-    @Column(name = "seat_count")
-    private Integer seatCount;
+    @Column(name = "initial_seat_count")
+    private Integer initialSeatCount;
+
+    @Column(name = "current_seat_count")
+    private Integer currentSeatCount;
 
     @Column(name = "deadline")
     private LocalDate deadline;

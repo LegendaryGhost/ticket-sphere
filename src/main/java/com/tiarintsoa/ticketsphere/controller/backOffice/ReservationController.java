@@ -1,7 +1,6 @@
 package com.tiarintsoa.ticketsphere.controller.backOffice;
 
 import com.tiarintsoa.annotation.Controller;
-import com.tiarintsoa.annotation.Post;
 import com.tiarintsoa.annotation.RequestParameter;
 import com.tiarintsoa.annotation.UrlMapping;
 import com.tiarintsoa.authentication.annotation.Authenticated;
@@ -38,7 +37,6 @@ public class ReservationController {
     }
 
     @UrlMapping("/reallocate")
-    @Post
     public ModelView reallocate(@RequestParameter("reallocationDate") LocalDate reallocationDate) {
         reservationService.reallocateReservations(reallocationDate);
         return new ModelView("redirect:/admin/reservations");

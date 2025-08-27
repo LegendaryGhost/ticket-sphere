@@ -31,7 +31,8 @@ public class PromotionService extends CRUDService<Promotion, Integer> {
         Promotion promotion = new Promotion();
 
         promotion.setDiscountPrice(request.getDiscountPrice());
-        promotion.setSeatCount(request.getSeatCount());
+        promotion.setInitialSeatCount(request.getSeatCount());
+        promotion.setCurrentSeatCount(request.getSeatCount());
         promotion.setDeadline(request.getDeadline());
 
         Flight flight = flightService.findById(request.getIdFlight());

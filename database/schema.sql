@@ -122,12 +122,13 @@ CREATE TABLE seat_price
 
 CREATE TABLE promotion
 (
-    id_promotion   SERIAL,
-    discount_price NUMERIC(15, 2) NOT NULL,
-    seat_count     INTEGER        NOT NULL,
-    deadline       DATE           NOT NULL,
-    id_flight      INTEGER        NOT NULL,
-    id_seat_type   INTEGER        NOT NULL,
+    id_promotion       SERIAL,
+    discount_price     NUMERIC(15, 2) NOT NULL,
+    initial_seat_count INTEGER        NOT NULL,
+    current_seat_count INTEGER        NOT NULL,
+    deadline           DATE           NOT NULL,
+    id_flight          INTEGER        NOT NULL,
+    id_seat_type       INTEGER        NOT NULL,
     PRIMARY KEY (id_promotion),
     FOREIGN KEY (id_flight) REFERENCES flight (id_flight),
     FOREIGN KEY (id_seat_type) REFERENCES seat_type (id_seat_type)

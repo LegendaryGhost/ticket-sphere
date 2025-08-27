@@ -12,7 +12,7 @@
     <%@ include file="./../components/navbar.jsp"%>
 
     <main class="container-fluid px-4">
-        <form class="custom-form row g-3" method="post" action="${pageContext.request.contextPath}/admin/reservations/reallocate">
+        <form class="custom-form row g-3" method="get" action="${pageContext.request.contextPath}/admin/reservations/reallocate">
             <h1 class="text-center">Reallocate Reservation</h1>
 
             <div class="col-12">

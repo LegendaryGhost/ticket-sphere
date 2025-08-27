@@ -35,8 +35,8 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
         if (promotion != null) {
             int takenPromotionSeats = promotionService.findTakenPromotionSeats(promotion.getId());
 
-            if (takenPromotionSeats < promotion.getSeatCount()) {
-                int availableSeats = promotion.getSeatCount() - takenPromotionSeats;
+            if (takenPromotionSeats < promotion.getCurrentSeatCount()) {
+                int availableSeats = promotion.getCurrentSeatCount() - takenPromotionSeats;
                 Integer promotedSeatNumber = Math.min(availableSeats, reservation.getAdultCount() + reservation.getChildCount());
                 reservation.setPromotion(promotion);
                 reservation.setPromotedSeatNumber(promotedSeatNumber);
@@ -102,18 +102,30 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
 
         for (Promotion promotion : promotions) {
             List<Reservation> overdueReservations = findNotPaidByPromotionId(promotion.getId());
-            for (Reservation reservation : overdueReservations) {
-                reservation.setCancellationDateTime(LocalDateTime.now());
-                update(reservation);
-            }
 
             int overdueSeatCount = overdueReservations.stream()
                     .mapToInt(r -> r.getAdultCount() + r.getChildCount())
                     .sum();
+
             Promotion nextPromotion = promotionService.findNextPromotion(promotion);
             if (nextPromotion != null) {
-                nextPromotion.setSeatCount(nextPromotion.getSeatCount() + overdueSeatCount);
+                // Reallocate to next promotion
+                promotion.setCurrentSeatCount(promotion.getCurrentSeatCount() - overdueSeatCount);
+                promotionService.update(promotion);
+
+                nextPromotion.setCurrentSeatCount(nextPromotion.getCurrentSeatCount() + overdueSeatCount);
                 promotionService.update(nextPromotion);
+
+                for (Reservation reservation : overdueReservations) {
+                    reservation.setPromotion(nextPromotion);
+                    update(reservation);
+                }
+            } else {
+                // Cancel reservations if no next promotion
+                for (Reservation reservation : overdueReservations) {
+                    reservation.setCancellationDateTime(LocalDateTime.now());
+                    update(reservation);
+                }
             }
         }
     }

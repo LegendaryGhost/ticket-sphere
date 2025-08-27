@@ -66,11 +66,11 @@ VALUES ('2025-09-05 08:00:00', '2025-09-05 11:00:00', 1, 4, 1),  -- Direct: Anta
        ('2025-09-15 21:00:00', '2025-09-16 02:00:00', 2, 3, 2);  -- Direct: Paris CDG to Mauritius
 
 
-INSERT INTO promotion (id_flight, seat_count, discount_price, id_seat_type, deadline)
-VALUES (1, 4, 200, 1, '2025-08-27'),
-       (1, 2, 300, 1, '2025-09-03'),
-       (2, 3, 350, 1, '2025-09-05'),
-       (2, 1, 400, 1, '2025-09-13');
+INSERT INTO promotion (id_flight, initial_seat_count, current_seat_count, discount_price, id_seat_type, deadline)
+VALUES (1, 4, 4, 200, 1, '2025-08-27'),
+       (1, 2, 2, 300, 1, '2025-09-03'),
+       (2, 3, 3, 350, 1, '2025-09-05'),
+       (2, 1, 1, 400, 1, '2025-09-13');
 
 
 INSERT INTO client_user (first_name, last_name, email, phone, password)
@@ -78,6 +78,7 @@ VALUES ('John', 'Doe', 'john.doe@example.com', '+1234567890', 'hashed_password_1
        ('Alice', 'Smith', 'alice.smith@example.com', '+9876543210', 'hashed_password_2'),
        ('Bob', 'Johnson', 'bob.johnson@example.com', NULL, 'hashed_password_3'),
        ('Emma', 'Brown', 'emma.brown@example.com', '+1122334455', 'hashed_password_4');
+
 
 INSERT INTO reservation (id_flight, reservation_date, paid, id_seat_type, id_client_user, id_promotion, promoted_seat_number)
 VALUES (1, '2025-08-20 08:00:00', TRUE, 1, 1, 1, 1),

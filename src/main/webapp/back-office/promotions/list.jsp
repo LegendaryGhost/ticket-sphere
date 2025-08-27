@@ -32,7 +32,8 @@
                     <tr>
                         <th>Flight number</th>
                         <th>Seat type</th>
-                        <th>Seat count</th>
+                        <th>Initial seat count</th>
+                        <th>Current seat count</th>
                         <th>Discount price</th>
                         <th>Deadline</th>
                         <th>Actions</th>
@@ -43,7 +44,8 @@
                     <tr>
                         <td><%= promotion.getFlight().getId() %></td>
                         <td><%= promotion.getSeatType().getName() %></td>
-                        <td><%= promotion.getSeatCount() %></td>
+                        <td><%= promotion.getInitialSeatCount() %></td>
+                        <td><%= promotion.getCurrentSeatCount() %></td>
                         <td><%= promotion.getDiscountPrice() %> €</td>
                         <td><%= DateTimeUtil.humanFormat(promotion.getDeadline()) %></td>
                         <td>
