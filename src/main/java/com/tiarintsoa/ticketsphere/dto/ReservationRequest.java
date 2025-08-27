@@ -6,6 +6,8 @@ import com.tiarintsoa.ticketsphere.model.Reservation;
 import com.tiarintsoa.ticketsphere.model.SeatType;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class ReservationRequest {
 
@@ -21,6 +23,12 @@ public class ReservationRequest {
     @RequestParameter("childCount")
     private Integer childCount;
 
+    @RequestParameter("reservationDateTime")
+    private LocalDateTime reservationDateTime;
+
+    @RequestParameter("paid")
+    private String paid;
+
     public Reservation toReservation() {
         Reservation reservation = new Reservation();
 
@@ -34,6 +42,8 @@ public class ReservationRequest {
 
         reservation.setAdultCount(adultCount);
         reservation.setChildCount(childCount);
+        reservation.setReservationDateTime(reservationDateTime);
+        reservation.setPaid(paid.equals("paid"));
 
         return reservation;
     }

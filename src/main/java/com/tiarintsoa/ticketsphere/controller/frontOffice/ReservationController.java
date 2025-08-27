@@ -55,9 +55,9 @@ public class ReservationController {
 
         // Reservation deadline hour check
         // TODO: add warning message
-        if (deadline.isBefore(LocalDateTime.now())) {
-            return new ModelView("redirect:/reservations");
-        }
+//        if (deadline.isBefore(LocalDateTime.now())) {
+//            return new ModelView("redirect:/reservations");
+//        }
 
         reservationService.save(reservationRequest, (Integer) session.get("idClient"));
         return new ModelView("redirect:/reservations");

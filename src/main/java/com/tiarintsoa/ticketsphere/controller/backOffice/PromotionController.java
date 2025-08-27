@@ -39,7 +39,7 @@ public class PromotionController {
     @UrlMapping("/save")
     public ModelView savePromotion(@RequestParameter("promotion") PromotionRequest promotionRequest) {
         promotionService.create(promotionRequest);
-        return new ModelView("redirect:/admin/flights");
+        return new ModelView("redirect:/admin/promotions");
     }
 
 }

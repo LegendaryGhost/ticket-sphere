@@ -126,6 +126,7 @@
                         <th>Arrival city</th>
                         <th>Arrival time</th>
                         <th>Aircraft</th>
+                        <th>Company</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -138,6 +139,7 @@
                         <td><%= flight.getArrivalCity().getName() + " " + flight.getArrivalCity().getCountry().getName() %></td>
                         <td><%= DateTimeUtil.humanFormat(flight.getArrivalTime()) %></td>
                         <td><%= flight.getAircraft().getRegistration() + " - " + flight.getAircraft().getAircraftModel().getName() %></td>
+                        <td><%= flight.getAircraft().getCompany().getName() %></td>
                         <td>
                             <a href="${pageContext.request.contextPath}/admin/flights/update?id=<%= flight.getId() %>"
                                 class="btn btn-sm btn-outline-primary">

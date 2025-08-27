@@ -31,7 +31,7 @@ public class ReservationService extends CRUDService<Reservation, Integer> {
     public void save(ReservationRequest request, Integer idClient) {
         Reservation reservation = request.toReservation();
 
-        Promotion promotion = promotionService.findByFlightSeatTypeAndDate(request.getIdFlight(), request.getIdSeatType(), LocalDate.now());
+        Promotion promotion = promotionService.findByFlightSeatTypeAndDate(request.getIdFlight(), request.getIdSeatType(), request.getReservationDateTime());
         if (promotion != null) {
             int takenPromotionSeats = promotionService.findTakenPromotionSeats(promotion.getId());
 

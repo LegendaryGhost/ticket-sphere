@@ -23,7 +23,7 @@
         <div class="table-container">
             <h1 class="mb-4 text-center">Promotions</h1>
             <p>
-                <a href="${pageContext.request.contextPath}/admin/promotions/add"
+                <a href="${pageContext.request.contextPath}/admin/promotions/form"
                     class="btn btn-outline-success">Add a new promotion
                 </a>
             </p>

@@ -24,7 +24,7 @@ VALUES ('Air Madagascar'),
 
 INSERT INTO aircraft (registration, manufacture_date, id_aircraft_model, id_company)
 VALUES ('AV001', '2018-05-10', 1, 1),
-       ('AV002', '2020-03-15', 2, 1);
+       ('AV002', '2020-03-15', 2, 2);
 
 
 INSERT INTO seat_type (name)
@@ -60,6 +60,13 @@ VALUES ('Antananarivo', 1),
        ('Addis Abeba', 4);
 
 
+INSERT INTO client_user (first_name, last_name, email, phone, password)
+VALUES ('John', 'Doe', 'john.doe@example.com', '+1234567890', 'hashed_password_1'),
+       ('Alice', 'Smith', 'alice.smith@example.com', '+9876543210', 'hashed_password_2'),
+       ('Bob', 'Johnson', 'bob.johnson@example.com', NULL, 'hashed_password_3'),
+       ('Emma', 'Brown', 'emma.brown@example.com', '+1122334455', 'hashed_password_4');
+
+
 -- Insert flights (some direct, some with stopovers)
 INSERT INTO flight (departure_time, arrival_time, id_departure_city, id_arrival_city, id_aircraft)
 VALUES ('2025-09-05 08:00:00', '2025-09-05 11:00:00', 1, 4, 1),  -- Direct: Antananarivo to Addis Abeba
@@ -71,13 +78,6 @@ VALUES (1, 4, 4, 200, 1, '2025-08-27'),
        (1, 2, 2, 300, 1, '2025-09-03'),
        (2, 3, 3, 350, 1, '2025-09-05'),
        (2, 1, 1, 400, 1, '2025-09-13');
-
-
-INSERT INTO client_user (first_name, last_name, email, phone, password)
-VALUES ('John', 'Doe', 'john.doe@example.com', '+1234567890', 'hashed_password_1'),
-       ('Alice', 'Smith', 'alice.smith@example.com', '+9876543210', 'hashed_password_2'),
-       ('Bob', 'Johnson', 'bob.johnson@example.com', NULL, 'hashed_password_3'),
-       ('Emma', 'Brown', 'emma.brown@example.com', '+1122334455', 'hashed_password_4');
 
 
 INSERT INTO reservation (id_flight, reservation_date, paid, id_seat_type, id_client_user, id_promotion, promoted_seat_number)

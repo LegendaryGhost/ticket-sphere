@@ -88,7 +88,7 @@
                             selected
                             <% } %>
                     >
-                        <%= aircraft.getRegistration() + " - " + aircraft.getAircraftModel().getName() %>
+                        <%= aircraft.getCompany().getName() + " - " + aircraft.getRegistration() + " - " + aircraft.getAircraftModel().getName() %>
                     </option>
                     <% } %>
                 </select>

@@ -55,12 +55,25 @@
 
             <div class="mb-3">
                 <label class="form-label" for="adultCount">Adult count:</label>
-                <input class="form-control" type="number" min="0" name="reservation.adultCount" id="adultCount" required>
+                <input class="form-control" type="number" min="0" name="reservation.adultCount" id="adultCount" value="1" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="childCount">Child count:</label>
-                <input class="form-control" type="number" min="0" name="reservation.childCount" id="childCount" required>
+                <input class="form-control" type="number" min="0" name="reservation.childCount" id="childCount" value="0" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="reservationDateTime">Reservation date and time:</label>
+                <input class="form-control" type="datetime-local" id="reservationDateTime" name="reservation.reservationDateTime" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-check-label" for="paid">Paid:</label>
+                <select class="form-select" name="reservation.paid" id="paid" required>
+                    <option value="not-paid" selected>Not paid</option>
+                    <option value="paid">Paid</option>
+                </select>
             </div>
 
             <button class="btn btn-primary w-100" type="submit">Reserve</button>

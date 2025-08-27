@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PromotionService extends CRUDService<Promotion, Integer> {
@@ -58,14 +59,20 @@ public class PromotionService extends CRUDService<Promotion, Integer> {
         }
     }
 
-    public Promotion findByFlightSeatTypeAndDate(Integer idFlight, Integer idSeatType, LocalDate date) {
+    public Promotion findByFlightSeatTypeAndDate(Integer idFlight, Integer idSeatType, LocalDateTime dateTime) {
         try (EntityManager em = emf.createEntityManager()) {
-            String jpql = "SELECT pr FROM Promotion pr WHERE pr.flight.id = :idFlight AND pr.seatType.id = :idSeatType AND pr.deadline >= :now ORDER BY pr.deadline DESC";
+            String jpql = """
+                        SELECT pr FROM Promotion pr
+                        WHERE pr.flight.id = :idFlight
+                        AND pr.seatType.id = :idSeatType
+                        AND pr.deadline >= :reservationDate
+                        ORDER BY pr.deadline ASC
+                    """;
 
             return em.createQuery(jpql, Promotion.class)
                     .setParameter("idFlight", idFlight)
                     .setParameter("idSeatType", idSeatType)
-                    .setParameter("now", date)
+                    .setParameter("reservationDate", dateTime.toLocalDate())
                     .setMaxResults(1) // LIMIT 1
                     .getResultStream()
                     .findFirst()
